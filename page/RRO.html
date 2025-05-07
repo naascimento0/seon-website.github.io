@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SEON</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../static/images/favicon.svg" sizes="32x32" type="image/svg">
+    <!-- CDN from Bootstrap website -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilo customizado -->
+    <style>
+        /* Tema verde claro */
+        :root {
+            --light-green: #d4edda; /* Verde claro principal */
+            --dark-green: #155724;  /* Verde escuro para contraste */
+            --mid-green: #c3e6cb;   /* Tom intermediário */
+            --text-muted-green: #6c757d; /* Mantém o cinza muted padrão */
+        }
+
+        /* Barra de navegação */
+        .navbar {
+            background-color: var(--light-green);
+            border-bottom: 1px solid var(--dark-green);
+        }
+        .navbar-brand, .nav-link {
+            color: var(--dark-green) !important;
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: #0d3c17 !important; /* Tom mais escuro no hover */
+        }
+        .dropdown-menu {
+            background-color: var(--mid-green);
+        }
+        .dropdown-item {
+            color: var(--dark-green);
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        /* Corpo e seções */
+        body {
+            color: var(--dark-green);
+            padding-top: 70px; /* Espaço para navbar fixa */
+        }
+        .section, .bg-light {
+            border: 1px solid var(--mid-green);
+            border-radius: 0.3rem;
+            padding: 3rem;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        h1.display-4, h2.display-6 {
+            color: var(--dark-green);
+        }
+        .lead, small {
+            color: var(--dark-green);
+        }
+        hr {
+            border-color: var(--mid-green);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 60px; /* Abaixo da navbar */
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            border-right: 1px solid var(--mid-green);
+            padding: 1rem;
+            overflow-y: auto; /* Rolagem se necessário */
+        }
+        .sidebar .nav-link {
+            color: var(--dark-green);
+            padding: 0.5rem 1rem;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--mid-green);
+            color: var(--dark-green);
+        }
+        .sidebar .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Ajuste do main para a sidebar */
+        .main-content {
+            margin-left: 250px; /* Espaço para a sidebar */
+        }
+    </style>
+
+    <!-- Estilo customizado footer-->
+    <style>
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            padding: 3rem 0;
+            border-top: 1px solid #dee2e6;
+            border-radius: 0.3rem;
+        }
+        footer .text-muted a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        footer .text-muted a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Marca -->
+            <a class="navbar-brand" href="HomePage.html">SEON</a>
+
+            <!-- Botão hamburguer para telas pequenas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu colapsável -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="HomePage.html">Home <span class="visually-hidden">(página atual)</span></a>
+                    </li>
+
+                    <!-- The Network -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownNetwork" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            The Network
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownNetwork">
+                            <li><a class="dropdown-item" href="HomePage.html">SEON</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#definition">Definition</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#architeture">Architecture</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#references">References</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Networked Ontologies -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownOntologies" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Networked Ontologies
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownOntologies">
+                            <li><a class="dropdown-item disabled">Foundational Layer</a></li>
+                            <li><a class="dropdown-item" href="UFO.html">UFO</a></li>
+                            <li><a class="dropdown-item disabled">Core Layer</a></li>
+                            <li><a class="dropdown-item" href="SysSwO.html">SysSwO</a></li>
+                            <li><a class="dropdown-item disabled">Domain Layer</a></li>
+                            <li><a class="dropdown-item" href="CMPO.html">CMPO</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Publications -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="Publications.html">Publications</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologydescription}" href="#ontologydescription">Ontology Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${relatedontologies}" href="#relatedontologies">Related Ontologies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologymodels}" href="#ontologymodels">Ontology Models</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${conceptsdefinition}" href="#conceptsdefinition">Concepts Definition</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${detailedconcepts}" href="#detailedconcepts">Detailed Concepts</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main role="main" class="main-content col">
+            <section class="bg-light p-5 rounded mb-4">
+                <div th:replace="~{fragments/additional-info :: info}"><div class="container-fluid d-flex justify-content-end"><span class="badge bg-danger text-lowercase">Unknown</span></div></div>
+                <h1 class="display-4">The <span th:text="${title}">Runtime Requirements Ontology (RRO)</span></h1>
+                <p class="lead text-end fst-italic" th:text="${ontoLevel}"><i class="bi bi-star-fill"></i> Domain Ontology from SEON</p>
+                <small><i class="bi-dot"></i><span th:utext="${ontoPublishedPaper}">RRO published paper</span></small>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 1. Ontology Description -->
+            <section class="section p-5 rounded" id="ontologydescription">
+                <h2 class="display-6">1. Ontology Description</h2>
+                <p class="lead text-justify" th:text="${description}">The Runtime Requirements Ontology (RRO) focuses on the notions related to the use of Requirements at Runtime. The Program Execution sub-ontology focuses on capturing the ontological nature of program execution, which is the basis for the use of requirements at runtime. The Runtime Requirements sub-ontology addresses the use of Runtime Requirements Artifacts by programs in execution.</p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 2. Related Ontologies -->
+            <section class="section p-5 rounded" id="relatedontologies">
+                <h2 class="display-6">2. Related Ontologies</h2>
+                <p class="lead">Networked ontologies used by <span th:text="${onto}">RRO</span>:</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="relatedOntologiesCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ontology</th>
+                            <th scope="col">Relation</th>
+                            <th scope="col">Integration Level</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${myOntologyDependencies}"><tr><td><a class="text-dark" href="RSRO.html" target="_blank">RSRO - Reference Software Requirements Ontology</a></td><td><span class="text-danger fw-bold">No definition available</span></td><td class="text-center"></td></tr>
+</tbody>
+                        <caption id="relatedOntologiesCaption">
+                            <small>Ontologies (re)used by <span th:text="${onto}">RRO</span>.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 3. Ontology Models -->
+            <section class="section p-5 rounded" id="ontologymodels">
+                <h2 class="display-6">3. Ontology Models</h2>
+                <p class="lead" th:text="${sectionContent}"><p class="lead text-center">No diagrams available for this package.</p>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="RRO_RRO-+Program+Execution_section">3.1.  RRO- Program Execution</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 1 presents the conceptual model of the RRO- Program Execution subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/RRO/RRO- Program Execution/RRO- Program Execution.png" width="1177" class="map img-fluid" usemap="#RRO- Program Execution" alt="Diagram of RRO- Program Execution"><map name="RRO- Program Execution">
+<area shape="rect" coords="845,10,949,40" href="UFO.html#UFO_Object" target="" alt="Non-agentive substantial individuals. Objects can be Physical or Social.">
+<area shape="rect" coords="116,412,215,442" href="RSRO.html#RSRO_Requirement" target="_blank" alt="Goal to be achieved, representing a condition or capacity needed for the system users for solving a problem.
+@Ex.: Providing a product register; Performing a function in an established time.">
+<area shape="rect" coords="86,484,252,514" href="RSRO.html#RSRO_Functional+Requirement" target="_blank" alt="Requirement defining a function to be available in the product being built.
+@Ex.: The need for the system to control client orders.">
+<area shape="rect" coords="75,585,265,615" href="RSRO.html#RSRO_Software+Function+Universal" target="_blank" alt="Function Universal denoting the types of functions expected in a software.
+@Ex.: Controlling client orders.">
+<area shape="rect" coords="426,244,498,274" href="SysSwO.html#SysSwO_Program" target="_blank" alt="Software Item which aims at producing a certain result through execution on a computer, in a particular way, given by the Program Specification. A Program is constituted by code, but it is not identical to code. Code can be changed without altering the identity of its program, which is anchored to the program's essential property: its intended specification (Program Specification).">
+<area shape="rect" coords="684,245,837,275" href="SysSwO.html#SysSwO_Program+Specification" target="_blank" alt="A document that describes the purpose (structure and functions) of a program in sufficient detail to permit coding and to facilitate maintenance.">
+<area shape="rect" coords="503,65,626,95" href="SysSwO.html#SysSwO_Software+Artifact" target="_blank" alt="Object intentionally made to serve a given purpose in the context of a software Project or Organization.
+@Ex.: a document, a model, a library, an e-mail, a bug.">
+<area shape="rect" coords="717,150,799,180" href="SysSwO.html#SysSwO_Document" target="_blank" alt="Any written or pictorial, uniquely identified, information related to the software development, usually presented in a predefined format.
+@Ex.: a Requirements Document, a specification, a report.">
+<area shape="rect" coords="410,150,516,180" href="SysSwO.html#SysSwO_Software+Item" target="_blank" alt="Piece of software, produced during the software process, not considered a complete Software Product, but an intermediary result.
+@Ex.: a component, database schema, a script.">
+<area shape="rect" coords="106,150,231,180" href="SysSwO.html#SysSwO_Information+Item" target="_blank" alt="Relevant information for human use, produced or used by Performed Activity.
+@Ex.: a documented requirement, a bug reported, an agreement e-mail, a component description.">
+<area shape="rect" coords="94,245,242,275" href="RSRO.html#RSRO_Requirement+Artifact" target="_blank" alt="Information Item describing a Requirement.
+@Ex.: "The system shall provide a product register.", "The system shall control the client orders.", "The system shall be operable from Google Chrome version 32+."">
+<area shape="rect" coords="265,367,442,397" href="UFO.html#UFO_Function+Universal" target="" alt="">
+<area shape="rect" coords="426,514,543,544" href="UFO.html#UFO_Function" target="" alt="">
+<area shape="rect" coords="421,438,553,468" href="UFO.html#UFO_Disposition" target="" alt="NOVA DESCRIÇÃO: Dispositions are properties (moments) that are only manifested in particular situations and that can also fail to be manifested. When manifested, they are manifested through the occurrence of events. Take for example the disposition of a magnet m to attract metallic material. The object m has this disposition even if it is never manifested, for example, because it is never close to any magnetic material. Nonetheless, m can certainly be said to possess that intrinsic moment, which it shares with other
+magnets">
+<area shape="rect" coords="418,584,548,614" href="SysSwO.html#SysSwO_Software+Function" target="_blank" alt="Software Functions are functional dispositions that constitute the complex disposition Loaded Program Copy. Each Software Function is an instance of a Software Function Universal. When the software development process is accomplished correctly, the Software Functions that constitute the Loaded Program Copy are instances of the exact Software Function Universals described by the Program Specification and successfully implemented by the Program.">
+<area shape="rect" coords="621,535,773,565" href="SysSwO.html#SysSwO_Loaded+Program+Copy" target="_blank" alt="Loaded Program Copy is the materialization of a Program, inhering in a Computer Machine.
+@Ex.: a copy of a program loaded in primary memory of my computer.">
+<area shape="rect" coords="830,483,964,513" href="SysSwO.html#SysSwO_Computer+Machine" target="_blank" alt="Hardware Equipment able to run programs, processing, transforming and storing data
+
+_____________
+
+Computer Machine is a hardware equipament able to run programs, processing, transforming and storing data and information.
+
+Definição ANTIGA: Machine is a hardware equipament able to run programs.">
+<area shape="rect" coords="940,584,1021,614" href="SysSwO.html#SysSwO_Controller" target="_blank" alt="A Machine where a Loaded Program Copy is running (Program Copy Execution) plays the role of Controller.">
+<area shape="rect" coords="707,319,877,349" href="UFO.html#UFO_Event+(Perdurant)" target="" alt="Events (also called perdurants) are individuals composed of temporal parts. They happen in time in the sense that they extend in time accumulating temporal parts. @Examples of events are a conversation, a football game, a symphony execution, a birthday party, or a particular business process.">
+<area shape="rect" coords="989,293,1108,323" href="UFO.html#UFO_Situation" target="" alt="A situation is a particular configuration of a part of reality which can be understood as a whole. Situations can be factual or counterfactual (@e.g., the situation in which “Al Gore is the president of the USA”).">
+<area shape="rect" coords="956,359,1139,389" href="SysSwO.html#SysSwO_Computing+Resulting+State" target="_blank" alt="Observable State is a situation resulting from the execution of a program copy. It involves qualities and quality values (qualia) of the Machine in which the Loaded Program Copy inheres, as well as of entities residing in that Machine (including the Loaded Program Copy itself).">
+<area shape="rect" coords="710,401,877,431" href="SysSwO.html#SysSwO_Program+Copy+Execution" target="_blank" alt="Program Copy Execution is an Event representing the execution of the Loaded Program Copy running in a Machine. In other words, the Program Copy Execution is the event of the physical manifestation of the dispositions (represented as the complex disposition Loaded Program Copy) that inhere in the Machine."></map>
+<p class="fw-bold mt-4">Figure 1. RRO- Program Execution Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="RRO_Runtime+Requirements_section">3.2.  Runtime Requirements</h4>
+<p class="lead text-justify">The Runtime Requirements sub-ontology addresses the use of Runtime Requirements Artifacts by programs in execution.</p>
+<p class="lead">Figure 2 presents the conceptual model of the RRO - RTR subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/RRO/Runtime Requirements/RRO - RTR.png" width="1132" class="map img-fluid" usemap="#RRO - RTR" alt="Diagram of RRO - RTR"><map name="RRO - RTR">
+<area shape="rect" coords="235,54,383,84" href="RSRO.html#RSRO_Requirement+Artifact" target="_blank" alt="Information Item describing a Requirement.
+@Ex.: "The system shall provide a product register.", "The system shall control the client orders.", "The system shall be operable from Google Chrome version 32+."">
+<area shape="rect" coords="969,54,1041,84" href="SysSwO.html#SysSwO_Program" target="_blank" alt="Software Item which aims at producing a certain result through execution on a computer, in a particular way, given by the Program Specification. A Program is constituted by code, but it is not identical to code. Code can be changed without altering the identity of its program, which is anchored to the program's essential property: its intended specification (Program Specification).">
+<area shape="rect" coords="24,144,249,174" href="RRO.html#RRO_Design+Time+Requirement+Artifact" target="_blank" alt="Design Time Requirement Artifact is a Requirement Artifact written in natural language or other format that could not be processed by a program at runtime. It is a Requirement Artifact to be used during design time.">
+<area shape="rect" coords="287,144,489,174" href="RRO.html#RRO_Runtime+Requirement+Artifact" target="_blank" alt="Runtime Requirement Artifact is a Requirement Artifact written in a computational file that could be processed by a program at runtime (RRT Program Copy Execution).">
+<area shape="rect" coords="23,234,296,264" href="RRO.html#RRO_Monitoring+Runtime+Requirement+Artifact" target="_blank" alt="Monitoring Runtime Requirement Artifact defines the criteria for verifying if a requirement is being satisfied or not at
+runtime.">
+<area shape="rect" coords="392,236,643,266" href="RRO.html#RRO_Change+Runtime+Requirement+Artifact" target="_blank" alt="Change Runtime Requirement Artifact specifies changes on the system's
+behavior, in order for the software system to keep fulfilling the goals it has been designed for.">
+<area shape="rect" coords="750,144,848,174" href="RRO.html#RRO_RRT+Program" target="_blank" alt="An RRT Program is a Program that is built intending to satisfy at least one Runtime Requirement Artifact.">
+<area shape="rect" coords="951,144,1066,174" href="RRO.html#RRO_Target+Program" target="_blank" alt="Target Program is the role a Program plays when it is the targer of a RRT Program, i.e., the RRT Program are built to act over (monitor/change) the Target Program.">
+<area shape="rect" coords="672,234,815,264" href="RRO.html#RRO_Adaptation+Program" target="_blank" alt="An Adaptation Program is a RRT Program that intends to satisfy at least one Change Runtime Requirement Artifact.">
+<area shape="rect" coords="827,234,973,264" href="RRO.html#RRO_Compliance+Program" target="_blank" alt="Compliance Program is a RRT Program that intends to satisfy at least one Monitoring Runtime Requirement Artifact.">
+<area shape="rect" coords="232,329,399,359" href="SysSwO.html#SysSwO_Program+Copy+Execution" target="_blank" alt="Program Copy Execution is an Event representing the execution of the Loaded Program Copy running in a Machine. In other words, the Program Copy Execution is the event of the physical manifestation of the dispositions (represented as the complex disposition Loaded Program Copy) that inhere in the Machine.">
+<area shape="rect" coords="800,329,952,359" href="SysSwO.html#SysSwO_Loaded+Program+Copy" target="_blank" alt="Loaded Program Copy is the materialization of a Program, inhering in a Computer Machine.
+@Ex.: a copy of a program loaded in primary memory of my computer.">
+<area shape="rect" coords="75,401,258,431" href="SysSwO.html#SysSwO_Computing+Resulting+State" target="_blank" alt="Observable State is a situation resulting from the execution of a program copy. It involves qualities and quality values (qualia) of the Machine in which the Loaded Program Copy inheres, as well as of entities residing in that Machine (including the Loaded Program Copy itself).">
+<area shape="rect" coords="788,391,966,421" href="RRO.html#RRO_Loaded+RRT+Program+Copy" target="_blank" alt="Loaded RRT Program Copy is the materialization of a RRT Program.">
+<area shape="rect" coords="687,471,909,501" href="RRO.html#RRO_Loaded+Adaptation+Program+Copy" target="_blank" alt="Loaded Adaptation Program Copy is the materialization of an Adaptation Program.">
+<area shape="rect" coords="827,512,1053,542" href="RRO.html#RRO_Loaded+Compliance+Program+Copy" target="_blank" alt="Loaded Compliance Program Copy is the materialization of a Compliance Program.">
+<area shape="rect" coords="927,574,1122,604" href="RRO.html#RRO_Loaded+Target+Program+Copy" target="_blank" alt="Loaded Target Program Copy is the materialization of a Target Program.">
+<area shape="rect" coords="353,391,546,421" href="RRO.html#RRO_RRT+Program+Copy+Execution" target="_blank" alt="An RRT Program Copy Execution is the execution of a Loaded RRT Program Copy. It uses Runtime Requirement Artifacts as resources.">
+<area shape="rect" coords="238,512,479,542" href="RRO.html#RRO_Compliance+Program+Copy+Execution" target="_blank" alt="A Compliance Program Copy Execution is the execution of a Loaded Compliance Program Copy. It uses Monitoring Runtime Requirement Artifacts as resources to monitor Execution States.">
+<area shape="rect" coords="437,471,675,501" href="RRO.html#RRO_Adaptation+Program+Copy+Execution" target="_blank" alt="An Adaptation Program Copy Execution is the execution of a Loaded Adaptation Program Copy. It uses Change Runtime Requirement Artifacts as resources to triggers changes in its Loaded Target Program Copy.">
+<area shape="rect" coords="10,574,220,604" href="RRO.html#RRO_Target+Program+Copy+Execution" target="_blank" alt="A Target Program Copy Execution is the execution of a Loaded Target Program Copy. It brings about to an Execution State.">
+<area shape="rect" coords="59,460,215,490" href="RRO.html#RRO_Target+Execution+State" target="_blank" alt="Execution State is the Observable State resulting from the Target Program Copy Execution, which is monitored by some Compliance Program Copy Executions."></map>
+<p class="fw-bold mt-4">Figure 2. RRO - RTR Conceptual Model.</p></div>
+<p class="lead text-justify">The first important distinction in the Runtime Requirements sub-ontology is between Runtime Requirement Artifacts, those that can be used by Program Copy Executions at runtime, from their non-runtime counterparts, named Design Time Requirement Artifacts.<br/><br/>Runtime Requirement Artifact is further specialized into two specific subtypes: Monitoring Runtime Requirement Artifact defines the criteria for verifying if a requirement is being satisfied or not at runtime; on the other hand, Change Runtime Requirement Artifact specifies changes on the system’s behavior, in order for the software system to keep fulfilling the goals it has been designed for. <br/><br/>An RRT Program is a Program that is built intending to satisfy at least one Runtime Requirement Artifact. The aforementioned distinction between runtime requirement artifacts also reflects in RRT Programs (and in the corresponding Loaded Program Copies that materialize them and in the Program Copy Executions that are executions of the latter). Thus, RRT Program is specialized in Compliance Program, representing those RRT Programs that intend to satisfy at least one Monitoring Runtime Requirement Artifact, and Adaptation Program, representing those RRT Programs that intend to satisfy at least one Change Runtime Requirement Artifact. The generalization set of RRT Program is not disjoint, since the same program can intend to satisfy, at the same time, both a Monitoring Runtime Requirement Artifact and a Change Runtime Requirement Artifact. Finally, some RRT Programs are built to act over (monitor/change) specific programs. When a Program is the target of an RRT Program, we say that it plays the role of a Target Program.<br/>A Loaded RRT Program Copy is the materialization of an RRT Program, while an RRT Program Copy Execution is the execution of a Loaded RRT Program Copy. An RRT Program Copy Execution uses Runtime Requirement Artifacts as resources. A Compliance Program Copy Execution uses Monitoring Runtime Requirement Artifacts, and monitors Observable States produced by another Program Copy Execution, said Target Program Copy Execution. While using requirements at runtime, we are not interested in situations arising from the execution of any program, but only in those arising from the Target Program Copy Executions. For this reason, a Compliance Program Copy Execution monitors  Target Execution States, i.e, the situations arising from the Target Program Copy Execution. The Compliance Program Copy Execution monitors the Target Execution States to verify if the runtime requirements comply with the criteria specified in the Monitoring Runtime Requirement Artifacts. If one or more requirements are not being fulfilled accordingly, an Adaptation Program Copy Execution can trigger changes in the the Loaded Program Copy being monitored, which is said a Loaded Target Program Copy, by using Change Runtime Requirement Artifacts. Like the RRT Program generalization set, the generalization set of RRT Program Copy Execution (and also of Loaded RRT Program Copy) is not disjoint, since the same RRT Program Copy Execution can use, at the same time, both a Monitoring Runtime Requirement Artifact and a Change Runtime Requirement Artifact. </p>
+
+</div></p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 4. Concepts Definition -->
+            <section class="section p-5 rounded" id="conceptsdefinition">
+                <h2 class="display-6">4. Concepts Definition</h2>
+                <p class="lead">The following table shows the definitions for <span th:text="${onto}">RRO</span> concepts.</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="conceptsDefinitionCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Concept</th>
+                            <th scope="col">Definition</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${conceptDefinitions}"><tr><td><p id="RRO_Adaptation+Program"><span class="fw-bold">Adaptation Program</span><a class="text-muted" href="#RRO_Adaptation+Program_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>An Adaptation Program is a RRT Program that intends to satisfy at least one Change Runtime Requirement Artifact.</p></td></tr>
+<tr><td><p id="RRO_Adaptation+Program+Copy+Execution"><span class="fw-bold">Adaptation Program Copy Execution</span><a class="text-muted" href="#RRO_Adaptation+Program+Copy+Execution_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>An Adaptation Program Copy Execution is the execution of a Loaded Adaptation Program Copy. It uses Change Runtime Requirement Artifacts as resources to triggers changes in its Loaded Target Program Copy.</p></td></tr>
+<tr><td><p id="RRO_Change+Runtime+Requirement+Artifact"><span class="fw-bold">Change Runtime Requirement Artifact</span><a class="text-muted" href="#RRO_Change+Runtime+Requirement+Artifact_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Change Runtime Requirement Artifact specifies changes on the system'sbehavior, in order for the software system to keep fulfilling the goals it has been designed for.</p></td></tr>
+<tr><td><p id="RRO_Compliance+Program"><span class="fw-bold">Compliance Program</span><a class="text-muted" href="#RRO_Compliance+Program_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Compliance Program is a RRT Program that intends to satisfy at least one Monitoring Runtime Requirement Artifact.</p></td></tr>
+<tr><td><p id="RRO_Compliance+Program+Copy+Execution"><span class="fw-bold">Compliance Program Copy Execution</span><a class="text-muted" href="#RRO_Compliance+Program+Copy+Execution_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Compliance Program Copy Execution is the execution of a Loaded Compliance Program Copy. It uses Monitoring Runtime Requirement Artifacts as resources to monitor Execution States.</p></td></tr>
+<tr><td><p id="RRO_Design+Time+Requirement+Artifact"><span class="fw-bold">Design Time Requirement Artifact</span><a class="text-muted" href="#RRO_Design+Time+Requirement+Artifact_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Design Time Requirement Artifact is a Requirement Artifact written in natural language or other format that could not be processed by a program at runtime. It is a Requirement Artifact to be used during design time.</p></td></tr>
+<tr><td><p id="RRO_Loaded+Adaptation+Program+Copy"><span class="fw-bold">Loaded Adaptation Program Copy</span><a class="text-muted" href="#RRO_Loaded+Adaptation+Program+Copy_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Loaded Adaptation Program Copy is the materialization of an Adaptation Program.</p></td></tr>
+<tr><td><p id="RRO_Loaded+Compliance+Program+Copy"><span class="fw-bold">Loaded Compliance Program Copy</span><a class="text-muted" href="#RRO_Loaded+Compliance+Program+Copy_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Loaded Compliance Program Copy is the materialization of a Compliance Program.</p></td></tr>
+<tr><td><p id="RRO_Loaded+RRT+Program+Copy"><span class="fw-bold">Loaded RRT Program Copy</span><a class="text-muted" href="#RRO_Loaded+RRT+Program+Copy_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Loaded RRT Program Copy is the materialization of a RRT Program.</p></td></tr>
+<tr><td><p id="RRO_Loaded+Target+Program+Copy"><span class="fw-bold">Loaded Target Program Copy</span><a class="text-muted" href="#RRO_Loaded+Target+Program+Copy_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Loaded Target Program Copy is the materialization of a Target Program.</p></td></tr>
+<tr><td><p id="RRO_Monitoring+Runtime+Requirement+Artifact"><span class="fw-bold">Monitoring Runtime Requirement Artifact</span><a class="text-muted" href="#RRO_Monitoring+Runtime+Requirement+Artifact_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Monitoring Runtime Requirement Artifact defines the criteria for verifying if a requirement is being satisfied or not atruntime.</p></td></tr>
+<tr><td><p id="RRO_RRT+Program"><span class="fw-bold">RRT Program</span><a class="text-muted" href="#RRO_RRT+Program_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>An RRT Program is a Program that is built intending to satisfy at least one Runtime Requirement Artifact.</p></td></tr>
+<tr><td><p id="RRO_RRT+Program+Copy+Execution"><span class="fw-bold">RRT Program Copy Execution</span><a class="text-muted" href="#RRO_RRT+Program+Copy+Execution_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>An RRT Program Copy Execution is the execution of a Loaded RRT Program Copy. It uses Runtime Requirement Artifacts as resources.</p></td></tr>
+<tr><td><p id="RRO_Runtime+Requirement+Artifact"><span class="fw-bold">Runtime Requirement Artifact</span><a class="text-muted" href="#RRO_Runtime+Requirement+Artifact_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Runtime Requirement Artifact is a Requirement Artifact written in a computational file that could be processed by a program at runtime (RRT Program Copy Execution).</p></td></tr>
+<tr><td><p id="RRO_Target+Execution+State"><span class="fw-bold">Target Execution State</span><a class="text-muted" href="#RRO_Target+Execution+State_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Execution State is the Observable State resulting from the Target Program Copy Execution, which is monitored by some Compliance Program Copy Executions.</p></td></tr>
+<tr><td><p id="RRO_Target+Program"><span class="fw-bold">Target Program</span><a class="text-muted" href="#RRO_Target+Program_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Target Program is the role a Program plays when it is the targer of a RRT Program, i.e., the RRT Program are built to act over (monitor/change) the Target Program.</p></td></tr>
+<tr><td><p id="RRO_Target+Program+Copy+Execution"><span class="fw-bold">Target Program Copy Execution</span><a class="text-muted" href="#RRO_Target+Program+Copy+Execution_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Target Program Copy Execution is the execution of a Loaded Target Program Copy. It brings about to an Execution State.</p></td></tr>
+</tbody>
+                        <caption id="conceptsDefinitionCaption">
+                            <small><span th:text="${onto}">RRO</span> concepts definition.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. Detailed Concepts -->
+            <section class="section p-5 rounded" id="detailedconcepts">
+                <h2 class="display-6">5. Detailed Concepts</h2>
+                <p class="lead"><span th:text="${title}">Runtime Requirements Ontology (RRO)</span> detailed concepts.</p>
+                <div th:utext="${detailedConcepts}"><hr><div class="container-fluid" id="RRO_Adaptation+Program_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Adaptation Program</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Adaptation Program</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::RRT Program</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>An Adaptation Program is a RRT Program that intends to satisfy at least one Change Runtime Requirement Artifact.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Loaded Adaptation Program Copy (0..*) materialization of (1..1) Adaptation Program<br>Adaptation Program (0..*) \intends to satisfy (1..*) Change Runtime Requirement Artifact<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Adaptation+Program+Copy+Execution_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Adaptation Program Copy Execution</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Adaptation Program Copy Execution</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::RRT Program Copy Execution</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>An Adaptation Program Copy Execution is the execution of a Loaded Adaptation Program Copy. It uses Change Runtime Requirement Artifacts as resources to triggers changes in its Loaded Target Program Copy.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Change Runtime Requirement Artifact (1..*) used by (0..*) Adaptation Program Copy Execution<br>Adaptation Program Copy Execution (0..*) triggers changes in (1..*) Loaded Target Program Copy<br>Adaptation Program Copy Execution (0..*) execution of (1..1) Loaded Adaptation Program Copy<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Change+Runtime+Requirement+Artifact_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Change Runtime Requirement Artifact</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Change Runtime Requirement Artifact</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::Runtime Requirement Artifact</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Change Runtime Requirement Artifact specifies changes on the system'sbehavior, in order for the software system to keep fulfilling the goals it has been designed for.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Change Runtime Requirement Artifact (1..*) used by (0..*) Adaptation Program Copy Execution<br>Adaptation Program (0..*) \intends to satisfy (1..*) Change Runtime Requirement Artifact<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Compliance+Program_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Compliance Program</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Compliance Program</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::RRT Program</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Compliance Program is a RRT Program that intends to satisfy at least one Monitoring Runtime Requirement Artifact.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Loaded Compliance Program Copy (0..*) materialization of (1..1) Compliance Program<br>Compliance Program (0..*) \intends to satisfy (1..*) Monitoring Runtime Requirement Artifact<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Compliance+Program+Copy+Execution_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Compliance Program Copy Execution</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Compliance Program Copy Execution</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::RRT Program Copy Execution</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Compliance Program Copy Execution is the execution of a Loaded Compliance Program Copy. It uses Monitoring Runtime Requirement Artifacts as resources to monitor Execution States.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Monitoring Runtime Requirement Artifact (1..*) used by (0..*) Compliance Program Copy Execution<br>Compliance Program Copy Execution (1..*) monitors (1..*) Target Execution State<br>Compliance Program Copy Execution (0..*) execution of (1..1) Loaded Compliance Program Copy<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Design+Time+Requirement+Artifact_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Design Time Requirement Artifact</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Design Time Requirement Artifact</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RSRO::Requirement Artifact</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Design Time Requirement Artifact is a Requirement Artifact written in natural language or other format that could not be processed by a program at runtime. It is a Requirement Artifact to be used during design time.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Loaded+Adaptation+Program+Copy_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Loaded Adaptation Program Copy</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Loaded Adaptation Program Copy</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::Loaded RRT Program Copy</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Loaded Adaptation Program Copy is the materialization of an Adaptation Program.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Loaded Adaptation Program Copy (0..*) materialization of (1..1) Adaptation Program<br>Adaptation Program Copy Execution (0..*) execution of (1..1) Loaded Adaptation Program Copy<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Loaded+Compliance+Program+Copy_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Loaded Compliance Program Copy</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Loaded Compliance Program Copy</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::Loaded RRT Program Copy</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Loaded Compliance Program Copy is the materialization of a Compliance Program.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Loaded Compliance Program Copy (0..*) materialization of (1..1) Compliance Program<br>Compliance Program Copy Execution (0..*) execution of (1..1) Loaded Compliance Program Copy<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Loaded+RRT+Program+Copy_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Loaded RRT Program Copy</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Loaded RRT Program Copy</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Loaded Program Copy</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Loaded RRT Program Copy is the materialization of a RRT Program.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Loaded RRT Program Copy (0..*) materialization of (1..1) RRT Program<br>RRT Program Copy Execution (0..*) execution of (1..1) Loaded RRT Program Copy<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Loaded+Target+Program+Copy_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Loaded Target Program Copy</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Loaded Target Program Copy</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Loaded Program Copy</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Loaded Target Program Copy is the materialization of a Target Program.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Target Program Copy Execution (0..*) execution of (1..1) Loaded Target Program Copy<br>Adaptation Program Copy Execution (0..*) triggers changes in (1..*) Loaded Target Program Copy<br>Loaded Target Program Copy (0..*) materialization of (1..1) Target Program<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Monitoring+Runtime+Requirement+Artifact_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Monitoring Runtime Requirement Artifact</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Monitoring Runtime Requirement Artifact</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RRO::Runtime Requirement Artifact</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Monitoring Runtime Requirement Artifact defines the criteria for verifying if a requirement is being satisfied or not atruntime.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Compliance Program (0..*) \intends to satisfy (1..*) Monitoring Runtime Requirement Artifact<br>Monitoring Runtime Requirement Artifact (1..*) used by (0..*) Compliance Program Copy Execution<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_RRT+Program_detail"><h4><i class="bi bi-diagram-3"></i> RRO::RRT Program</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">RRT Program</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Program</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>An RRT Program is a Program that is built intending to satisfy at least one Runtime Requirement Artifact.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">RRT Program (0..*) \intends to satisfy (1..*) Runtime Requirement Artifact<br>Target Program (0..*) is target of (1..*) RRT Program<br>Loaded RRT Program Copy (0..*) materialization of (1..1) RRT Program<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_RRT+Program+Copy+Execution_detail"><h4><i class="bi bi-diagram-3"></i> RRO::RRT Program Copy Execution</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">RRT Program Copy Execution</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Program Copy Execution</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>An RRT Program Copy Execution is the execution of a Loaded RRT Program Copy. It uses Runtime Requirement Artifacts as resources.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Runtime Requirement Artifact (1..*) used by (0..*) RRT Program Copy Execution<br>RRT Program Copy Execution (0..*) execution of (1..1) Loaded RRT Program Copy<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Runtime+Requirement+Artifact_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Runtime Requirement Artifact</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Runtime Requirement Artifact</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RSRO::Requirement Artifact</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Runtime Requirement Artifact is a Requirement Artifact written in a computational file that could be processed by a program at runtime (RRT Program Copy Execution).</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">RRT Program (0..*) \intends to satisfy (1..*) Runtime Requirement Artifact<br>Runtime Requirement Artifact (1..*) used by (0..*) RRT Program Copy Execution<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Target+Execution+State_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Target Execution State</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Target Execution State</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Computing Resulting State</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Execution State is the Observable State resulting from the Target Program Copy Execution, which is monitored by some Compliance Program Copy Executions.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Target Program Copy Execution (1..1) brings about (1..1) Target Execution State<br>Compliance Program Copy Execution (1..*) monitors (1..*) Target Execution State<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Target+Program_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Target Program</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Target Program</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Program</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Target Program is the role a Program plays when it is the targer of a RRT Program, i.e., the RRT Program are built to act over (monitor/change) the Target Program.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Target Program (0..*) is target of (1..*) RRT Program<br>Loaded Target Program Copy (0..*) materialization of (1..1) Target Program<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RRO_Target+Program+Copy+Execution_detail"><h4><i class="bi bi-diagram-3"></i> RRO::Target Program Copy Execution</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Target Program Copy Execution</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Program Copy Execution</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Target Program Copy Execution is the execution of a Loaded Target Program Copy. It brings about to an Execution State.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Target Program Copy Execution (1..1) brings about (1..1) Target Execution State<br>Target Program Copy Execution (0..*) execution of (1..1) Loaded Target Program Copy<br></code></p></div></div></div>
+
+</div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-5 rounded border-top bg-light">
+    <div class="container">
+        <div class="row justify-content-md-center g-4">
+            <!-- Copyright -->
+            <div class="col-md-auto">
+                <h6>Copyright</h6>
+                <div class="d-flex align-items-center">
+                    <i class="material-icons text-muted me-1" aria-label="Símbolo de copyright">copyright</i>
+                    <span class="text-muted">
+                            <small th:text="'© ' + ${currentYear} + ' Simone Dornelas Costa'">© Nome a ser colocado</small>
+                        </span>
+                </div>
+            </div>
+
+            <!-- Powered by -->
+            <div class="col-md-auto">
+                <h6>Powered by</h6>
+                <ul class="list-unstyled text-muted">
+                    <li>
+                        <a href="https://nemo.inf.ufes.br/" target="_blank" class="text-muted text-decoration-none">
+                            <img src="../static/images/logoNemo.svg" alt="Logo NEMO" width="50" class="mb-1 d-block">
+                            NEMO
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ontologia -->
+            <div class="col-md-auto">
+                <h5 th:text="${ontoName}">RRO</h5>
+                <ul class="list-unstyled text-muted">
+                    <li><small><a th:href="${onlyNameLink}" href="#" class="text-muted" th:text="${onlyName}">Runtime Requirements Ontology</a></small></li>
+                    <li><small><a th:href="${onLevelLink}" href="#" class="text-muted" th:text="${onLevel}">Domain Ontology from SEON</a></small></li>
+                    <li><small><a th:href="${addInfoLink}" href="#" class="text-muted" th:text="${addInfo}">Unknown</a></small></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div class="col-md-auto">
+                <h6>Contact us</h6>
+                <ul class="list-unstyled text-muted">
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:simone.costa@ufes.br" class="text-muted">Email de algúem</a></small>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:monalessa@inf.ufes.br" class="text-muted">Email de alguém</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="row mt-4 justify-content-md-center">
+            <div class="col-md-auto">
+                <small class="text-muted" th:text="${date}">Sun Mar 02 18:29:06 BRT 2025</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

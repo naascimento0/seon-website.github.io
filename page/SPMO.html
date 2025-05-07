@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SEON</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../static/images/favicon.svg" sizes="32x32" type="image/svg">
+    <!-- CDN from Bootstrap website -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilo customizado -->
+    <style>
+        /* Tema verde claro */
+        :root {
+            --light-green: #d4edda; /* Verde claro principal */
+            --dark-green: #155724;  /* Verde escuro para contraste */
+            --mid-green: #c3e6cb;   /* Tom intermediário */
+            --text-muted-green: #6c757d; /* Mantém o cinza muted padrão */
+        }
+
+        /* Barra de navegação */
+        .navbar {
+            background-color: var(--light-green);
+            border-bottom: 1px solid var(--dark-green);
+        }
+        .navbar-brand, .nav-link {
+            color: var(--dark-green) !important;
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: #0d3c17 !important; /* Tom mais escuro no hover */
+        }
+        .dropdown-menu {
+            background-color: var(--mid-green);
+        }
+        .dropdown-item {
+            color: var(--dark-green);
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        /* Corpo e seções */
+        body {
+            color: var(--dark-green);
+            padding-top: 70px; /* Espaço para navbar fixa */
+        }
+        .section, .bg-light {
+            border: 1px solid var(--mid-green);
+            border-radius: 0.3rem;
+            padding: 3rem;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        h1.display-4, h2.display-6 {
+            color: var(--dark-green);
+        }
+        .lead, small {
+            color: var(--dark-green);
+        }
+        hr {
+            border-color: var(--mid-green);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 60px; /* Abaixo da navbar */
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            border-right: 1px solid var(--mid-green);
+            padding: 1rem;
+            overflow-y: auto; /* Rolagem se necessário */
+        }
+        .sidebar .nav-link {
+            color: var(--dark-green);
+            padding: 0.5rem 1rem;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--mid-green);
+            color: var(--dark-green);
+        }
+        .sidebar .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Ajuste do main para a sidebar */
+        .main-content {
+            margin-left: 250px; /* Espaço para a sidebar */
+        }
+    </style>
+
+    <!-- Estilo customizado footer-->
+    <style>
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            padding: 3rem 0;
+            border-top: 1px solid #dee2e6;
+            border-radius: 0.3rem;
+        }
+        footer .text-muted a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        footer .text-muted a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Marca -->
+            <a class="navbar-brand" href="HomePage.html">SEON</a>
+
+            <!-- Botão hamburguer para telas pequenas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu colapsável -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="HomePage.html">Home <span class="visually-hidden">(página atual)</span></a>
+                    </li>
+
+                    <!-- The Network -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownNetwork" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            The Network
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownNetwork">
+                            <li><a class="dropdown-item" href="HomePage.html">SEON</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#definition">Definition</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#architeture">Architecture</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#references">References</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Networked Ontologies -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownOntologies" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Networked Ontologies
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownOntologies">
+                            <li><a class="dropdown-item disabled">Foundational Layer</a></li>
+                            <li><a class="dropdown-item" href="UFO.html">UFO</a></li>
+                            <li><a class="dropdown-item disabled">Core Layer</a></li>
+                            <li><a class="dropdown-item" href="SysSwO.html">SysSwO</a></li>
+                            <li><a class="dropdown-item disabled">Domain Layer</a></li>
+                            <li><a class="dropdown-item" href="CMPO.html">CMPO</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Publications -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="Publications.html">Publications</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologydescription}" href="#ontologydescription">Ontology Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${relatedontologies}" href="#relatedontologies">Related Ontologies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologymodels}" href="#ontologymodels">Ontology Models</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${conceptsdefinition}" href="#conceptsdefinition">Concepts Definition</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${detailedconcepts}" href="#detailedconcepts">Detailed Concepts</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main role="main" class="main-content col">
+            <section class="bg-light p-5 rounded mb-4">
+                <div th:replace="~{fragments/additional-info :: info}"><div class="container-fluid d-flex justify-content-end"><span class="badge bg-danger text-lowercase">Unknown</span></div></div>
+                <h1 class="display-4">The <span th:text="${title}">Software Project Management Ontology (SPMO)</span></h1>
+                <p class="lead text-end fst-italic" th:text="${ontoLevel}"><i class="bi bi-star-fill"></i> Domain Ontology from SEON</p>
+                <small><i class="bi-dot"></i><span th:utext="${ontoPublishedPaper}">SPMO published paper</span></small>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 1. Ontology Description -->
+            <section class="section p-5 rounded" id="ontologydescription">
+                <h2 class="display-6">1. Ontology Description</h2>
+                <p class="lead text-justify" th:text="${description}"><span class="text-danger fw-bold">No definition available</span></p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 2. Related Ontologies -->
+            <section class="section p-5 rounded" id="relatedontologies">
+                <h2 class="display-6">2. Related Ontologies</h2>
+                <p class="lead">Networked ontologies used by <span th:text="${onto}">SPMO</span>:</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="relatedOntologiesCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ontology</th>
+                            <th scope="col">Relation</th>
+                            <th scope="col">Integration Level</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${myOntologyDependencies}"><tr><td><a class="text-dark" href="#" target="_blank">SPO - Software Process Ontology</a></td><td><span class="text-danger fw-bold">No definition available</span></td><td class="text-center">High</td></tr>
+</tbody>
+                        <caption id="relatedOntologiesCaption">
+                            <small>Ontologies (re)used by <span th:text="${onto}">SPMO</span>.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 3. Ontology Models -->
+            <section class="section p-5 rounded" id="ontologymodels">
+                <h2 class="display-6">3. Ontology Models</h2>
+                <p class="lead" th:text="${sectionContent}"><p class="lead">Figure 1 presents the packages of the SPMO Modularization.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/SPMO/SPMO Modularization.png" width="774" class="map img-fluid" usemap="#SPMO Modularization" alt="Diagram of SPMO Modularization"><map name="SPMO Modularization">
+<area shape="rect" coords="280,10,488,83" href="##SPO_Intended+Process+Structure_section" target="_blank" alt="">
+<area shape="rect" coords="606,10,763,83" href="##SPO_Performed+Process_section" target="_blank" alt="">
+<area shape="rect" coords="10,10,164,83" href="SPMO.html#SPMO_Estimated+Process_section" target="_blank" alt="">
+<area shape="rect" coords="309,122,457,195" href="SPMO.html#SPMO_Tracked+Process_section" target="_blank" alt="">
+<area shape="rect" coords="24,188,172,261" href="SPMO.html#SPMO_WBS_section" target="_blank" alt=""></map>
+<p class="fw-bold mt-4">Figure 1. SPMO Modularization.</p></div>
+<p class="lead text-justify">The Project Management Ontology (PMO) is defined as a layer over the Software Process Ontology, addressing aspects related to scope, time & duration, and cost estimation of intended processes, as well as aspects related to tracking planned versus performed processes. </p>
+
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="SPMO_WBS_section">3.1.  WBS</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 2 presents the conceptual model of the WBS subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/SPMO/WBS/WBS.png" width="447" class="map img-fluid" usemap="#WBS" alt="Diagram of WBS"><map name="WBS">
+<area shape="rect" coords="10,24,130,54" href="##SPO_Software+Project" target="_blank" alt="A Project related to software development or maintenance.">
+<area shape="rect" coords="267,24,356,54" href="SPMO.html#SPMO_Deliverable" target="_blank" alt="">
+<area shape="rect" coords="321,126,434,156" href="SPMO.html#SPMO_Practical+Result" target="_blank" alt="">
+<area shape="rect" coords="190,126,295,156" href="SPMO.html#SPMO_Work+Package" target="_blank" alt=""></map>
+<p class="fw-bold mt-4">Figure 2. WBS Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="SPMO_Estimated+Process_section">3.2.  Estimated Process</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 3 presents the conceptual model of the Estimated Process subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/SPMO/Estimated Process/Estimated Process.png" width="1236" class="map img-fluid" usemap="#Estimated Process" alt="Diagram of Estimated Process"><map name="Estimated Process">
+<area shape="rect" coords="430,285,541,315" href="##SPO_Project+Process" target="_blank" alt="Intended Process defined to be performed within a Project.
+@Ex.: a project Requirement Process, a project Construction Process.">
+<area shape="rect" coords="459,15,579,45" href="##SPO_Software+Project" target="_blank" alt="A Project related to software development or maintenance.">
+<area shape="rect" coords="66,274,225,323" href="SPMO.html#SPMO_Cost+Estimated+Process" target="_blank" alt="A Project Process with cost estimated.
+">
+<area shape="rect" coords="289,397,450,427" href="##SPO_General+Project+Process" target="_blank" alt="">
+<area shape="rect" coords="410,452,570,482" href="##SPO_Specific+Project+Process" target="_blank" alt="">
+<area shape="rect" coords="665,454,777,484" href="##SPO_Project+Activity" target="_blank" alt="Intended Activity defined to be performed within a Project, and thus that is part of a Project Process.
+@Ex.: a project Requirement Process, a project Construction Process.">
+<area shape="rect" coords="594,534,753,583" href="SPMO.html#SPMO_Cost+Estimated+Activity" target="_blank" alt="A Project Activity with cost estimated.">
+<area shape="rect" coords="758,534,944,583" href="SPMO.html#SPMO_Duration+Estimated+Activity" target="_blank" alt="A Project Process with duration estimated.">
+<area shape="rect" coords="91,344,277,393" href="SPMO.html#SPMO_Duration+Estimated+Process" target="_blank" alt="A Project Process with duration estimated.">
+<area shape="rect" coords="944,518,1076,583" href="##SPO_Scheduled+Activity" target="_blank" alt="An Intended Activity defining the time interval it is planned to be performed.
+@Ex.: The Requirements Verification and Validation activity scheduled for August 5th to 9th.">
+<area shape="rect" coords="33,189,164,254" href="##SPO_Scheduled+Process" target="_blank" alt="An Intended Process defining the Time Interval it is planned to be performed.
+@Ex.: The Requirements Development Process defined for the Alpha Project and scheduled for July 1st to August 15th.">
+<area shape="rect" coords="386,208,510,238" href="##SPO_Intended+Process" target="_blank" alt="Intention (Internal Commitment) representing the process defined to be performed in a specific project or organizational area, considering its particularities.
+@Ex.: Testing, Measurement, Strategic Planning intended processes.">
+<area shape="rect" coords="702,358,827,388" href="##SPO_Intended+Activity" target="_blank" alt="Intention (Internal Commitment) representing the activity defined to be performed as part of an Intended Process, by a defined role, potentially consuming and producing artifacts, using resources and adopting procedures.
+@Ex.: Unit Testing, Measure Collection, Strategic Goals Definition.">
+<area shape="rect" coords="418,552,586,582" href="SPMO.html#SPMO_Scope+Estimated+Activity" target="_blank" alt="A Project Activity with its scope in the project defined in terms of the work packages that it shall produce.">
+<area shape="rect" coords="162,66,251,96" href="SPMO.html#SPMO_Deliverable" target="_blank" alt="">
+<area shape="rect" coords="217,142,330,172" href="SPMO.html#SPMO_Practical+Result" target="_blank" alt="">
+<area shape="rect" coords="88,142,193,172" href="SPMO.html#SPMO_Work+Package" target="_blank" alt="">
+<area shape="rect" coords="670,650,800,680" href="SPMO.html#SPMO_Estimated+Activity" target="_blank" alt="A Project Activity with scope, cost, duration and time estimated.">
+<area shape="rect" coords="44,498,173,528" href="SPMO.html#SPMO_Estimated+Process" target="_blank" alt="A Project Process with cost, duration and time estimated.">
+<area shape="rect" coords="1069,303,1158,333" href="##SPO_Stakeholder" target="_blank" alt="Agent (Person, Team or Organization) interested or affected by the process activities or results.
+@Ex.: an Analyst, a Programmer, a User, a Testing Team, a Client Organization.">
+<area shape="rect" coords="1035,456,1191,486" href="##SPO_Stakeholder+Allocation" target="_blank" alt="Social Relator representing a Stakeholder allocated to perform a Scheduled Activity acting an Organizational Role.
+@Ex.: the allocation of Mary as a Project Manager to perform the scheduled Project Planning activity.">
+<area shape="rect" coords="1006,613,1226,711" href="SPMO.html#SPMO_Estimated+Stakeholder+Allocation" target="_blank" alt=""></map>
+<p class="fw-bold mt-4">Figure 3. Estimated Process Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="SPMO_Tracked+Process_section">3.3.  Tracked Process</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 4 presents the conceptual model of the Tracked Process subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/SPMO/Tracked Process/Tracked Process.png" width="1283" class="map img-fluid" usemap="#Tracked Process" alt="Diagram of Tracked Process"><map name="Tracked Process">
+<area shape="rect" coords="384,290,517,355" href="##SPO_Performed+Process" target="_blank" alt="Complex Action, composed of other processes or activities, performed in a specific Time Interval, for reaching a goal in a Project or Organization.
+@Ex.: Development, Configuration Management, Training performed processes.">
+<area shape="rect" coords="670,454,803,519" href="##SPO_Performed+Activity" target="_blank" alt="Action performed, in a specific Time Interval, by a Stakeholder, potentially producing and consuming Artifacts, as part of a Specific Performed Process.
+@Ex.: Requirement Elicitation, Component Design, Coding, Integration Test, Training Planning.">
+<area shape="rect" coords="528,50,652,80" href="##SPO_Intended+Process" target="_blank" alt="Intention (Internal Commitment) representing the process defined to be performed in a specific project or organizational area, considering its particularities.
+@Ex.: Testing, Measurement, Strategic Planning intended processes.">
+<area shape="rect" coords="810,267,935,297" href="##SPO_Intended+Activity" target="_blank" alt="Intention (Internal Commitment) representing the activity defined to be performed as part of an Intended Process, by a defined role, potentially consuming and producing artifacts, using resources and adopting procedures.
+@Ex.: Unit Testing, Measure Collection, Strategic Goals Definition.">
+<area shape="rect" coords="166,190,286,220" href="##SPO_Software+Project" target="_blank" alt="A Project related to software development or maintenance.">
+<area shape="rect" coords="502,152,676,182" href="##SPO_General+Intended+Process" target="_blank" alt="Intended Process that is composed of Specific Intended Processes, allowing an Organization or Project to define sub-processes that are part of a complete Intended Process.
+@Ex.: the overall Development Process defined for the Alpha Project.">
+<area shape="rect" coords="613,208,787,238" href="##SPO_Specific+Intended+Process" target="_blank" alt="Intended Process that is part of the General Intended Process of a Project or Organization, necessarily composed of at least two Intended Activities.
+@Ex.: the Construction Process defined for a specific project; the Training Process defined for an organizational OO training.">
+<area shape="rect" coords="266,418,449,448" href="##SPO_Performed+General+Process" target="_blank" alt="The overall Performed Process executed in a specific Project or Organization, which is necessarily composed of Specific Performed Processes.
+@Ex.: the overall process performed in a software project.">
+<area shape="rect" coords="400,474,582,504" href="##SPO_Performed+Specific+Process" target="_blank" alt="Performed Process that is part of the General Performed Process of a Project or Organization, necessarily composed of at least two Performed Activities.
+@Ex.: the Project Management Process performed in a specific project; the Portfolio Management Process performed in an organization.">
+<area shape="rect" coords="946,332,1058,362" href="##SPO_Project+Activity" target="_blank" alt="Intended Activity defined to be performed within a Project, and thus that is part of a Project Process.
+@Ex.: a project Requirement Process, a project Construction Process.">
+<area shape="rect" coords="323,118,434,148" href="##SPO_Project+Process" target="_blank" alt="Intended Process defined to be performed within a Project.
+@Ex.: a project Requirement Process, a project Construction Process.">
+<area shape="rect" coords="649,562,828,592" href="##SPO_Performed+Project+Activity" target="_blank" alt="">
+<area shape="rect" coords="138,348,316,378" href="##SPO_Performed+Project+Process" target="_blank" alt="Performed Process executed within a Project.
+@Ex.: a performed Requirement Process, a performed Construction Process.">
+<area shape="rect" coords="1024,406,1154,436" href="SPMO.html#SPMO_Estimated+Activity" target="_blank" alt="A Project Activity with scope, cost, duration and time estimated.">
+<area shape="rect" coords="10,150,139,180" href="SPMO.html#SPMO_Estimated+Process" target="_blank" alt="A Project Process with cost, duration and time estimated.">
+<area shape="rect" coords="678,631,795,712" href="SPMO.html#SPMO_Tracked+Activity" target="_blank" alt="">
+<area shape="rect" coords="167,470,284,551" href="SPMO.html#SPMO_Tracked+Process" target="_blank" alt="">
+<area shape="rect" coords="119,767,208,797" href="##SPO_Stakeholder" target="_blank" alt="Agent (Person, Team or Organization) interested or affected by the process activities or results.
+@Ex.: an Analyst, a Programmer, a User, a Testing Team, a Client Organization.">
+<area shape="rect" coords="364,749,538,814" href="##SPO_Stakeholder+Participation" target="_blank" alt="The participation of a Stakeholder in a Performed Activity, playing an Organizational Role.
+@Ex.: Mary acting as Programmer in a Coding Activity; the Quality Assurance Team acting as an Auditor in an Auditing activity.">
+<area shape="rect" coords="373,906,529,936" href="##SPO_Stakeholder+Allocation" target="_blank" alt="Social Relator representing a Stakeholder allocated to perform a Scheduled Activity acting an Organizational Role.
+@Ex.: the allocation of Mary as a Project Manager to perform the scheduled Project Planning activity.">
+<area shape="rect" coords="598,749,823,814" href="SPMO.html#SPMO_Tracked+Stakeholder+Participation" target="_blank" alt="">
+<area shape="rect" coords="601,870,821,968" href="SPMO.html#SPMO_Estimated+Stakeholder+Allocation" target="_blank" alt="">
+<area shape="rect" coords="932,733,1037,763" href="SPMO.html#SPMO_Work+Package" target="_blank" alt="">
+<area shape="rect" coords="1105,332,1273,362" href="SPMO.html#SPMO_Scope+Estimated+Activity" target="_blank" alt="A Project Activity with its scope in the project defined in terms of the work packages that it shall produce."></map>
+<p class="fw-bold mt-4">Figure 4. Tracked Process Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div></p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 4. Concepts Definition -->
+            <section class="section p-5 rounded" id="conceptsdefinition">
+                <h2 class="display-6">4. Concepts Definition</h2>
+                <p class="lead">The following table shows the definitions for <span th:text="${onto}">SPMO</span> concepts.</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="conceptsDefinitionCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Concept</th>
+                            <th scope="col">Definition</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${conceptDefinitions}"><tr><td><p id="SPMO_Corrective+Action+Register"><span class="fw-bold">Corrective Action Register</span><a class="text-muted" href="#SPMO_Corrective+Action+Register_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Information Item describing an action to eliminate the cause or reduce the likelihood of recurrence of a detected nonconformity or other undesirable situation. [ISO/IEC/IEEE 24765]@Ex.: an additional developer shall be allocated for Project X; a new agreement on the requirements change shall be obtained from the client.</p></td></tr>
+<tr><td><p id="SPMO_Cost+Estimated+Activity"><span class="fw-bold">Cost Estimated Activity</span><a class="text-muted" href="#SPMO_Cost+Estimated+Activity_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Project Activity with cost estimated.</p></td></tr>
+<tr><td><p id="SPMO_Cost+Estimated+Process"><span class="fw-bold">Cost Estimated Process</span><a class="text-muted" href="#SPMO_Cost+Estimated+Process_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Project Process with cost estimated.</p></td></tr>
+<tr><td><p id="SPMO_Deliverable"><span class="fw-bold">Deliverable</span><a class="text-muted" href="#SPMO_Deliverable_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p></p></td></tr>
+<tr><td><p id="SPMO_Duration+Estimated+Activity"><span class="fw-bold">Duration Estimated Activity</span><a class="text-muted" href="#SPMO_Duration+Estimated+Activity_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Project Process with duration estimated.</p></td></tr>
+<tr><td><p id="SPMO_Duration+Estimated+Process"><span class="fw-bold">Duration Estimated Process</span><a class="text-muted" href="#SPMO_Duration+Estimated+Process_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Project Process with duration estimated.</p></td></tr>
+<tr><td><p id="SPMO_Estimated+Activity"><span class="fw-bold">Estimated Activity</span><a class="text-muted" href="#SPMO_Estimated+Activity_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Project Activity with scope, cost, duration and time estimated.</p></td></tr>
+<tr><td><p id="SPMO_Estimated+Process"><span class="fw-bold">Estimated Process</span><a class="text-muted" href="#SPMO_Estimated+Process_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Project Process with cost, duration and time estimated.</p></td></tr>
+<tr><td><p id="SPMO_Estimated+Stakeholder+Allocation"><span class="fw-bold">Estimated Stakeholder Allocation</span><a class="text-muted" href="#SPMO_Estimated+Stakeholder+Allocation_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p></p></td></tr>
+<tr><td><p id="SPMO_Practical+Result"><span class="fw-bold">Practical Result</span><a class="text-muted" href="#SPMO_Practical+Result_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p></p></td></tr>
+<tr><td><p id="SPMO_Project+Manager"><span class="fw-bold">Project Manager</span><a class="text-muted" href="#SPMO_Project+Manager_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Stakeholder responsible for managing a Project.</p></td></tr>
+<tr><td><p id="SPMO_Project+Plan"><span class="fw-bold">Project Plan</span><a class="text-muted" href="#SPMO_Project+Plan_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Document describing the planning of a Project, to be used as the basis for project management.</p></td></tr>
+<tr><td><p id="SPMO_Scope+Estimated+Activity"><span class="fw-bold">Scope Estimated Activity</span><a class="text-muted" href="#SPMO_Scope+Estimated+Activity_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Project Activity with its scope in the project defined in terms of the work packages that it shall produce.</p></td></tr>
+<tr><td><p id="SPMO_Tracked+Activity"><span class="fw-bold">Tracked Activity</span><a class="text-muted" href="#SPMO_Tracked+Activity_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p></p></td></tr>
+<tr><td><p id="SPMO_Tracked+Process"><span class="fw-bold">Tracked Process</span><a class="text-muted" href="#SPMO_Tracked+Process_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p></p></td></tr>
+<tr><td><p id="SPMO_Tracked+Stakeholder+Participation"><span class="fw-bold">Tracked Stakeholder Participation</span><a class="text-muted" href="#SPMO_Tracked+Stakeholder+Participation_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p></p></td></tr>
+<tr><td><p id="SPMO_Work+Package"><span class="fw-bold">Work Package</span><a class="text-muted" href="#SPMO_Work+Package_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p></p></td></tr>
+</tbody>
+                        <caption id="conceptsDefinitionCaption">
+                            <small><span th:text="${onto}">SPMO</span> concepts definition.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. Detailed Concepts -->
+            <section class="section p-5 rounded" id="detailedconcepts">
+                <h2 class="display-6">5. Detailed Concepts</h2>
+                <p class="lead"><span th:text="${title}">Software Project Management Ontology (SPMO)</span> detailed concepts.</p>
+                <div th:utext="${detailedConcepts}"><hr><div class="container-fluid" id="SPMO_Corrective+Action+Register_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Corrective Action Register</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;subkind&gt;&gt;</code><br><span class="fw-bold">Corrective Action Register</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Information Item</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Information Item describing an action to eliminate the cause or reduce the likelihood of recurrence of a detected nonconformity or other undesirable situation. [ISO/IEC/IEEE 24765]@Ex.: an additional developer shall be allocated for Project X; a new agreement on the requirements change shall be obtained from the client.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Noncompliance Resolution creates Corrective Action Register<br>Noncompliance Register (0..*)  (0..*) Corrective Action Register<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Cost+Estimated+Activity_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Cost Estimated Activity</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Cost Estimated Activity</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Project Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Project Activity with cost estimated.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Cost+Estimated+Process_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Cost Estimated Process</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Cost Estimated Process</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Project Process</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Project Process with cost estimated.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Deliverable_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Deliverable</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;mode&gt;&gt;</code><br><span class="fw-bold">Deliverable</span></p></div><br><h5>Specializes:</h5></div><div class="p-3 m-3 col"><h5>Definition:</h5><p></p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Practical Result (0..*) <>-- (2..*) Deliverable<br>Software Project (1..1) has (0..*) Deliverable<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Duration+Estimated+Activity_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Duration Estimated Activity</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Duration Estimated Activity</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Project Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Project Process with duration estimated.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Duration+Estimated+Process_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Duration Estimated Process</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Duration Estimated Process</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Project Process</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Project Process with duration estimated.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Estimated+Activity_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Estimated Activity</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Estimated Activity</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Scheduled Activity</p><p><i class="bi bi-diagram-2"></i> SPMO::Cost Estimated Activity</p><p><i class="bi bi-diagram-2"></i> SPMO::Scope Estimated Activity</p><p><i class="bi bi-diagram-2"></i> SPMO::Duration Estimated Activity</p><p><i class="bi bi-diagram-2"></i> SPO::Project Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Project Activity with scope, cost, duration and time estimated.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Tracked Activity (0..1) tracked in relation to (1..1) Estimated Activity<br>Estimated Stakeholder Allocation (0..*) is to perform (1..1) Estimated Activity  &lt&ltmediation&gt&gt<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Estimated+Process_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Estimated Process</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Estimated Process</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPMO::Duration Estimated Process</p><p><i class="bi bi-diagram-2"></i> SPMO::Cost Estimated Process</p><p><i class="bi bi-diagram-2"></i> SPO::Scheduled Process</p><p><i class="bi bi-diagram-2"></i> SPO::Project Process</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Project Process with cost, duration and time estimated.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Tracked Process (0..1) tracked in relation to (1..1) Estimated Process<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Estimated+Stakeholder+Allocation_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Estimated Stakeholder Allocation</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Estimated Stakeholder Allocation</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Stakeholder Allocation</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p></p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Tracked Stakeholder Participation (0..*) refers to (1..1) Estimated Stakeholder Allocation<br>Estimated Stakeholder Allocation (0..*) is to perform (1..1) Estimated Activity  &lt&ltmediation&gt&gt<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Practical+Result_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Practical Result</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Practical Result</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPMO::Deliverable</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p></p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Practical Result (0..*) <>-- (2..*) Deliverable<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Project+Manager_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Project Manager</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;role&gt;&gt;</code><br><span class="fw-bold">Project Manager</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Person Stakeholder</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Stakeholder responsible for managing a Project.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Project Manager is in charge of Quality Assurance Planning<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Project+Plan_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Project Plan</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;subkind&gt;&gt;</code><br><span class="fw-bold">Project Plan</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Document</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Document describing the planning of a Project, to be used as the basis for project management.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Quality Assurance Planning uses Project Plan<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Scope+Estimated+Activity_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Scope Estimated Activity</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Scope Estimated Activity</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Project Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Project Activity with its scope in the project defined in terms of the work packages that it shall produce.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Scope Estimated Activity (1..*) is to produce (1..*) Work Package<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Tracked+Activity_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Tracked Activity</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Tracked Activity</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Project Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p></p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Tracked Activity (0..1) tracked in relation to (1..1) Estimated Activity<br>Tracked Activity (0..*) contributes to produce (1..*) Work Package<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Tracked+Process_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Tracked Process</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Tracked Process</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Project Process</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p></p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Tracked Process (0..1) tracked in relation to (1..1) Estimated Process<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Tracked+Stakeholder+Participation_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Tracked Stakeholder Participation</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Tracked Stakeholder Participation</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Stakeholder Participation</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p></p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Tracked Stakeholder Participation (0..*) refers to (1..1) Estimated Stakeholder Allocation<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="SPMO_Work+Package_detail"><h4><i class="bi bi-diagram-3"></i> SPMO::Work Package</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Work Package</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPMO::Deliverable</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p></p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Tracked Activity (0..*) contributes to produce (1..*) Work Package<br>Scope Estimated Activity (1..*) is to produce (1..*) Work Package<br></code></p></div></div></div>
+
+</div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-5 rounded border-top bg-light">
+    <div class="container">
+        <div class="row justify-content-md-center g-4">
+            <!-- Copyright -->
+            <div class="col-md-auto">
+                <h6>Copyright</h6>
+                <div class="d-flex align-items-center">
+                    <i class="material-icons text-muted me-1" aria-label="Símbolo de copyright">copyright</i>
+                    <span class="text-muted">
+                            <small th:text="'© ' + ${currentYear} + ' Simone Dornelas Costa'">© Nome a ser colocado</small>
+                        </span>
+                </div>
+            </div>
+
+            <!-- Powered by -->
+            <div class="col-md-auto">
+                <h6>Powered by</h6>
+                <ul class="list-unstyled text-muted">
+                    <li>
+                        <a href="https://nemo.inf.ufes.br/" target="_blank" class="text-muted text-decoration-none">
+                            <img src="../static/images/logoNemo.svg" alt="Logo NEMO" width="50" class="mb-1 d-block">
+                            NEMO
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ontologia -->
+            <div class="col-md-auto">
+                <h5 th:text="${ontoName}">SPMO</h5>
+                <ul class="list-unstyled text-muted">
+                    <li><small><a th:href="${onlyNameLink}" href="#" class="text-muted" th:text="${onlyName}">Software Project Management Ontology</a></small></li>
+                    <li><small><a th:href="${onLevelLink}" href="#" class="text-muted" th:text="${onLevel}">Domain Ontology from SEON</a></small></li>
+                    <li><small><a th:href="${addInfoLink}" href="#" class="text-muted" th:text="${addInfo}">Unknown</a></small></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div class="col-md-auto">
+                <h6>Contact us</h6>
+                <ul class="list-unstyled text-muted">
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:simone.costa@ufes.br" class="text-muted">Email de algúem</a></small>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:monalessa@inf.ufes.br" class="text-muted">Email de alguém</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="row mt-4 justify-content-md-center">
+            <div class="col-md-auto">
+                <small class="text-muted" th:text="${date}">Sun Mar 02 18:29:06 BRT 2025</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

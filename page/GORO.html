@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SEON</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../static/images/favicon.svg" sizes="32x32" type="image/svg">
+    <!-- CDN from Bootstrap website -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilo customizado -->
+    <style>
+        /* Tema verde claro */
+        :root {
+            --light-green: #d4edda; /* Verde claro principal */
+            --dark-green: #155724;  /* Verde escuro para contraste */
+            --mid-green: #c3e6cb;   /* Tom intermediário */
+            --text-muted-green: #6c757d; /* Mantém o cinza muted padrão */
+        }
+
+        /* Barra de navegação */
+        .navbar {
+            background-color: var(--light-green);
+            border-bottom: 1px solid var(--dark-green);
+        }
+        .navbar-brand, .nav-link {
+            color: var(--dark-green) !important;
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: #0d3c17 !important; /* Tom mais escuro no hover */
+        }
+        .dropdown-menu {
+            background-color: var(--mid-green);
+        }
+        .dropdown-item {
+            color: var(--dark-green);
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        /* Corpo e seções */
+        body {
+            color: var(--dark-green);
+            padding-top: 70px; /* Espaço para navbar fixa */
+        }
+        .section, .bg-light {
+            border: 1px solid var(--mid-green);
+            border-radius: 0.3rem;
+            padding: 3rem;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        h1.display-4, h2.display-6 {
+            color: var(--dark-green);
+        }
+        .lead, small {
+            color: var(--dark-green);
+        }
+        hr {
+            border-color: var(--mid-green);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 60px; /* Abaixo da navbar */
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            border-right: 1px solid var(--mid-green);
+            padding: 1rem;
+            overflow-y: auto; /* Rolagem se necessário */
+        }
+        .sidebar .nav-link {
+            color: var(--dark-green);
+            padding: 0.5rem 1rem;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--mid-green);
+            color: var(--dark-green);
+        }
+        .sidebar .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Ajuste do main para a sidebar */
+        .main-content {
+            margin-left: 250px; /* Espaço para a sidebar */
+        }
+    </style>
+
+    <!-- Estilo customizado footer-->
+    <style>
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            padding: 3rem 0;
+            border-top: 1px solid #dee2e6;
+            border-radius: 0.3rem;
+        }
+        footer .text-muted a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        footer .text-muted a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Marca -->
+            <a class="navbar-brand" href="HomePage.html">SEON</a>
+
+            <!-- Botão hamburguer para telas pequenas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu colapsável -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="HomePage.html">Home <span class="visually-hidden">(página atual)</span></a>
+                    </li>
+
+                    <!-- The Network -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownNetwork" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            The Network
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownNetwork">
+                            <li><a class="dropdown-item" href="HomePage.html">SEON</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#definition">Definition</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#architeture">Architecture</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#references">References</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Networked Ontologies -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownOntologies" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Networked Ontologies
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownOntologies">
+                            <li><a class="dropdown-item disabled">Foundational Layer</a></li>
+                            <li><a class="dropdown-item" href="UFO.html">UFO</a></li>
+                            <li><a class="dropdown-item disabled">Core Layer</a></li>
+                            <li><a class="dropdown-item" href="SysSwO.html">SysSwO</a></li>
+                            <li><a class="dropdown-item disabled">Domain Layer</a></li>
+                            <li><a class="dropdown-item" href="CMPO.html">CMPO</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Publications -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="Publications.html">Publications</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologydescription}" href="#ontologydescription">Ontology Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${relatedontologies}" href="#relatedontologies">Related Ontologies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologymodels}" href="#ontologymodels">Ontology Models</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${conceptsdefinition}" href="#conceptsdefinition">Concepts Definition</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${detailedconcepts}" href="#detailedconcepts">Detailed Concepts</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main role="main" class="main-content col">
+            <section class="bg-light p-5 rounded mb-4">
+                <div th:replace="~{fragments/additional-info :: info}"><div class="container-fluid d-flex justify-content-end"><span class="badge bg-danger text-lowercase">Unknown</span></div></div>
+                <h1 class="display-4">The <span th:text="${title}">Goal-Oriented Requirements Ontology (GORO)</span></h1>
+                <p class="lead text-end fst-italic" th:text="${ontoLevel}"><i class="bi bi-star-fill"></i> Domain Ontology from SEON</p>
+                <small><i class="bi-dot"></i><span th:utext="${ontoPublishedPaper}">GORO published paper</span></small>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 1. Ontology Description -->
+            <section class="section p-5 rounded" id="ontologydescription">
+                <h2 class="display-6">1. Ontology Description</h2>
+                <p class="lead text-justify" th:text="${description}">The Goal-Oriented Requirements Ontology (GORO) intends to represent the nature of the main concepts and relations surrounding Goal-Oriented Requeriments Engineering (GORE) approaches.</p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 2. Related Ontologies -->
+            <section class="section p-5 rounded" id="relatedontologies">
+                <h2 class="display-6">2. Related Ontologies</h2>
+                <p class="lead">Networked ontologies used by <span th:text="${onto}">GORO</span>:</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="relatedOntologiesCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ontology</th>
+                            <th scope="col">Relation</th>
+                            <th scope="col">Integration Level</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${myOntologyDependencies}"><tr><td><a class="text-dark" href="RSRO.html" target="_blank">RSRO - Reference Software Requirements Ontology</a></td><td><span class="text-danger fw-bold">No definition available</span></td><td class="text-center"></td></tr>
+</tbody>
+                        <caption id="relatedOntologiesCaption">
+                            <small>Ontologies (re)used by <span th:text="${onto}">GORO</span>.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 3. Ontology Models -->
+            <section class="section p-5 rounded" id="ontologymodels">
+                <h2 class="display-6">3. Ontology Models</h2>
+                <p class="lead" th:text="${sectionContent}"><p class="lead">Figure 1 presents the conceptual model of the GORO.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/GORO/GORO.png" width="1184" class="map img-fluid" usemap="#GORO" alt="Diagram of GORO"><map name="GORO">
+<area shape="rect" coords="303,153,394,183" href="UFO.html#UFO_Goal" target="" alt="The propositional content of an Intention.">
+<area shape="rect" coords="277,268,415,298" href="RSRO.html#RSRO_Requirement" target="_blank" alt="Goal to be achieved, representing a condition or capacity needed for the system users for solving a problem.
+@Ex.: Providing a product register; Performing a function in an established time.">
+<area shape="rect" coords="1021,152,1110,182" href="##SPO_Stakeholder" target="_blank" alt="Agent (Person, Team or Organization) interested or affected by the process activities or results.
+@Ex.: an Analyst, a Programmer, a User, a Testing Team, a Client Organization.">
+<area shape="rect" coords="955,215,1174,245" href="RSRO.html#RSRO_Requirements+Stakeholder" target="_blank" alt="Stakeholder that provides needs and expectations for the product.
+@Ex.: users, operators, customers, suppliers.">
+<area shape="rect" coords="653,215,845,245" href="RSRO.html#RSRO_Stakeholder+Intention" target="_blank" alt="The intention of Requirements Stakeholders that defines requirements to be achieved.">
+<area shape="rect" coords="690,152,811,182" href="UFO.html#UFO_Intention" target="" alt="Intentions are desired state of affairs (situations) for which the agent commits at pursuing (@e.g., the Intention of going to a beach resort for the next summer break).">
+<area shape="rect" coords="277,345,419,375" href="GORO.html#GORO_Requirement" target="_blank" alt="A Goal in the scope of a specific problem, that describes environmental conditions to be achieved through a desired solution resulting in satisfaction of the underlying strategic goals. In GORE, these goals can be refined by decomposing them into sub-goals, as well as by defining them by means of alternative goals.">
+<area shape="rect" coords="783,419,886,449" href="GORO.html#GORO_Complex+Task" target="_blank" alt="A Complex Task is a Task that is composed in other tasks.">
+<area shape="rect" coords="668,419,761,449" href="GORO.html#GORO_Atomic+Task" target="_blank" alt="An Atomic Task is a Task that is not decomposed in other tasks.">
+<area shape="rect" coords="677,287,839,317" href="UFO.html#UFO_Action+Universal" target="" alt="NOVA DESCRIÇÃO: Action Universal are those universals whose instances are actions.
+">
+<area shape="rect" coords="157,219,232,249" href="GORO.html#GORO_Hardgoal" target="_blank" alt="Hardgoal is a proposition that is objectively satisfied by a given set of situations.">
+<area shape="rect" coords="240,219,310,249" href="GORO.html#GORO_Softgoal" target="_blank" alt="Softgoal is an initial and temporary vague expression of a goal not suficiently defined yet. It refers to a vague quality region whose exact boundaries are unknown. Thus it is not  possible to determine a priori the set of situations that satisfies the softgoal. Its satisfiability is usually related to an agent's judgement.">
+<area shape="rect" coords="1015,21,1115,51" href="UFO.html#UFO_Agent" target="" alt="Agents are Substantials (Functional Complexes or Collectives) that can bear special kinds of Intrinsic Moments named Intentional Moments.">
+<area shape="rect" coords="597,477,728,507" href="RSRO.html#RSRO_Assumption" target="_blank" alt="Assumptions describe states-of-affairs in the environment of interest that the Stakeholders believe to be true, i.e., they are the propositional content of Stakeholders' Beliefs. They express the belief that a specific situation exists in the environment.">
+<area shape="rect" coords="937,424,1106,454" href="RSRO.html#RSRO_Stakeholder+Belief" target="_blank" alt="The belief of Requirements Stakeholders regarding the environment of interest that are described in terms of Assumptions.">
+<area shape="rect" coords="10,386,215,416" href="RSRO.html#RSRO_Functional+Requirement" target="_blank" alt="Requirement defining a function to be available in the product being built.
+@Ex.: The need for the system to control client orders.">
+<area shape="rect" coords="84,435,318,465" href="RSRO.html#RSRO_Non-Functional+Requirement" target="_blank" alt="Requirement defining criteria or capabilities for the product.
+@Ex.: Being accessible from some specific browsers, Being in conformance with a standard, Performing a function in an established time.">
+<area shape="rect" coords="661,21,846,51" href="UFO.html#UFO_Intentional+Moment" target="" alt="The capacity of some properties of certain individuals to refer to possible Situations of reality. Every intentional moment has a propositional content (Proposition), which is an abstract representation of a class of situations referred by that intentional moment.">
+<area shape="rect" coords="671,86,831,116" href="UFO.html#UFO_Mental+Moment" target="" alt="">
+<area shape="rect" coords="284,72,417,102" href="UFO.html#UFO_Proposition" target="" alt="A Proposition is a sentence that is either true or false. The truth of a proposition is determined by its correspondence to the existence of an entity or fact in reality, the so-called truthmaker of a proposition.">
+<area shape="rect" coords="836,152,935,182" href="UFO.html#UFO_Belief" target="" alt="NOVA DESCRIÇÃO: Beliefs can be justified by situations in reality. Examples include my belief that Rome is the Capital of Italy, and the Belief that the Moon orbits the Earth.
+"></map>
+<p class="fw-bold mt-4">Figure 1. GORO Conceptual Model.</p></div>
+<p class="lead text-justify">In GORE, the domain characterization (and further identification of requirements and so on) is obtained initially by modeling the agents' goals. Agents bear intentional properties such as Beliefs and Intentions. These intentional properties are called Mental Moments. A Goal is a propositional content of an Intention. An Intention represents not only a will but also an internal commitment of the Agent to act towards the Goal, implying in a Plan to accomplish it. In that way, a Goal as an Intention should be associated with a Plan. Thus, Goals with associated Plans to accomplish them (Tasks) are propositional contents of Intentions.<br/><br/>In a Software Engineering process, a requirement does not refer necessarily to software. Hence, a Requirement is a Goal, in the scope of a specific problem, that describes environmental conditions to be achieved through a desired solution resulting in satisfaction of the underlying strategic goals.<br/><br/>Hardgoals are defined as propositions that are objectively satisfied by a given set of situations. In constrast, Softgoals refer to a vague quality region whose exact boundaries are unknown. <br/></p>
+</p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 4. Concepts Definition -->
+            <section class="section p-5 rounded" id="conceptsdefinition">
+                <h2 class="display-6">4. Concepts Definition</h2>
+                <p class="lead">The following table shows the definitions for <span th:text="${onto}">GORO</span> concepts.</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="conceptsDefinitionCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Concept</th>
+                            <th scope="col">Definition</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${conceptDefinitions}"><tr><td><p id="GORO_Atomic+Task"><span class="fw-bold">Atomic Task</span><a class="text-muted" href="#GORO_Atomic+Task_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>An Atomic Task is a Task that is not decomposed in other tasks.</p></td></tr>
+<tr><td><p id="GORO_Complex+Task"><span class="fw-bold">Complex Task</span><a class="text-muted" href="#GORO_Complex+Task_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Complex Task is a Task that is composed in other tasks.</p></td></tr>
+<tr><td><p id="GORO_Hardgoal"><span class="fw-bold">Hardgoal</span><a class="text-muted" href="#GORO_Hardgoal_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Hardgoal is a proposition that is objectively satisfied by a given set of situations.</p></td></tr>
+<tr><td><p id="GORO_Requirement"><span class="fw-bold">Requirement</span><a class="text-muted" href="#GORO_Requirement_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>A Goal in the scope of a specific problem, that describes environmental conditions to be achieved through a desired solution resulting in satisfaction of the underlying strategic goals. In GORE, these goals can be refined by decomposing them into sub-goals, as well as by defining them by means of alternative goals.</p></td></tr>
+<tr><td><p id="GORO_Softgoal"><span class="fw-bold">Softgoal</span><a class="text-muted" href="#GORO_Softgoal_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Softgoal is an initial and temporary vague expression of a goal not suficiently defined yet. It refers to a vague quality region whose exact boundaries are unknown. Thus it is not  possible to determine a priori the set of situations that satisfies the softgoal. Its satisfiability is usually related to an agent's judgement.</p></td></tr>
+</tbody>
+                        <caption id="conceptsDefinitionCaption">
+                            <small><span th:text="${onto}">GORO</span> concepts definition.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. Detailed Concepts -->
+            <section class="section p-5 rounded" id="detailedconcepts">
+                <h2 class="display-6">5. Detailed Concepts</h2>
+                <p class="lead"><span th:text="${title}">Goal-Oriented Requirements Ontology (GORO)</span> detailed concepts.</p>
+                <div th:utext="${detailedConcepts}"><hr><div class="container-fluid" id="GORO_Atomic+Task_detail"><h4><i class="bi bi-diagram-3"></i> GORO::Atomic Task</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Atomic Task</span></p></div><br><h5>Specializes:</h5></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>An Atomic Task is a Task that is not decomposed in other tasks.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="GORO_Complex+Task_detail"><h4><i class="bi bi-diagram-3"></i> GORO::Complex Task</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Complex Task</span></p></div><br><h5>Specializes:</h5></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Complex Task is a Task that is composed in other tasks.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="GORO_Hardgoal_detail"><h4><i class="bi bi-diagram-3"></i> GORO::Hardgoal</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Hardgoal</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Goal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Hardgoal is a proposition that is objectively satisfied by a given set of situations.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="GORO_Requirement_detail"><h4><i class="bi bi-diagram-3"></i> GORO::Requirement</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Requirement</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> RSRO::Requirement</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>A Goal in the scope of a specific problem, that describes environmental conditions to be achieved through a desired solution resulting in satisfaction of the underlying strategic goals. In GORE, these goals can be refined by decomposing them into sub-goals, as well as by defining them by means of alternative goals.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirement (0..1)  (0..*) Requirement<br>Requirement (0..1)  (0..*) Requirement<br>Requirement (0..1)  (0..*) Requirement<br>Requirement (0..1)  (0..*) Requirement<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="GORO_Softgoal_detail"><h4><i class="bi bi-diagram-3"></i> GORO::Softgoal</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Softgoal</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Goal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Softgoal is an initial and temporary vague expression of a goal not suficiently defined yet. It refers to a vague quality region whose exact boundaries are unknown. Thus it is not  possible to determine a priori the set of situations that satisfies the softgoal. Its satisfiability is usually related to an agent's judgement.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+</div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-5 rounded border-top bg-light">
+    <div class="container">
+        <div class="row justify-content-md-center g-4">
+            <!-- Copyright -->
+            <div class="col-md-auto">
+                <h6>Copyright</h6>
+                <div class="d-flex align-items-center">
+                    <i class="material-icons text-muted me-1" aria-label="Símbolo de copyright">copyright</i>
+                    <span class="text-muted">
+                            <small th:text="'© ' + ${currentYear} + ' Simone Dornelas Costa'">© Nome a ser colocado</small>
+                        </span>
+                </div>
+            </div>
+
+            <!-- Powered by -->
+            <div class="col-md-auto">
+                <h6>Powered by</h6>
+                <ul class="list-unstyled text-muted">
+                    <li>
+                        <a href="https://nemo.inf.ufes.br/" target="_blank" class="text-muted text-decoration-none">
+                            <img src="../static/images/logoNemo.svg" alt="Logo NEMO" width="50" class="mb-1 d-block">
+                            NEMO
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ontologia -->
+            <div class="col-md-auto">
+                <h5 th:text="${ontoName}">GORO</h5>
+                <ul class="list-unstyled text-muted">
+                    <li><small><a th:href="${onlyNameLink}" href="#" class="text-muted" th:text="${onlyName}">Goal-Oriented Requirements Ontology</a></small></li>
+                    <li><small><a th:href="${onLevelLink}" href="#" class="text-muted" th:text="${onLevel}">Domain Ontology from SEON</a></small></li>
+                    <li><small><a th:href="${addInfoLink}" href="#" class="text-muted" th:text="${addInfo}">Unknown</a></small></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div class="col-md-auto">
+                <h6>Contact us</h6>
+                <ul class="list-unstyled text-muted">
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:simone.costa@ufes.br" class="text-muted">Email de algúem</a></small>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:monalessa@inf.ufes.br" class="text-muted">Email de alguém</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="row mt-4 justify-content-md-center">
+            <div class="col-md-auto">
+                <small class="text-muted" th:text="${date}">Sun Mar 02 18:29:06 BRT 2025</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

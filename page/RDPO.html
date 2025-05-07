@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SEON</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../static/images/favicon.svg" sizes="32x32" type="image/svg">
+    <!-- CDN from Bootstrap website -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilo customizado -->
+    <style>
+        /* Tema verde claro */
+        :root {
+            --light-green: #d4edda; /* Verde claro principal */
+            --dark-green: #155724;  /* Verde escuro para contraste */
+            --mid-green: #c3e6cb;   /* Tom intermediário */
+            --text-muted-green: #6c757d; /* Mantém o cinza muted padrão */
+        }
+
+        /* Barra de navegação */
+        .navbar {
+            background-color: var(--light-green);
+            border-bottom: 1px solid var(--dark-green);
+        }
+        .navbar-brand, .nav-link {
+            color: var(--dark-green) !important;
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: #0d3c17 !important; /* Tom mais escuro no hover */
+        }
+        .dropdown-menu {
+            background-color: var(--mid-green);
+        }
+        .dropdown-item {
+            color: var(--dark-green);
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        /* Corpo e seções */
+        body {
+            color: var(--dark-green);
+            padding-top: 70px; /* Espaço para navbar fixa */
+        }
+        .section, .bg-light {
+            border: 1px solid var(--mid-green);
+            border-radius: 0.3rem;
+            padding: 3rem;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        h1.display-4, h2.display-6 {
+            color: var(--dark-green);
+        }
+        .lead, small {
+            color: var(--dark-green);
+        }
+        hr {
+            border-color: var(--mid-green);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 60px; /* Abaixo da navbar */
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            border-right: 1px solid var(--mid-green);
+            padding: 1rem;
+            overflow-y: auto; /* Rolagem se necessário */
+        }
+        .sidebar .nav-link {
+            color: var(--dark-green);
+            padding: 0.5rem 1rem;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--mid-green);
+            color: var(--dark-green);
+        }
+        .sidebar .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Ajuste do main para a sidebar */
+        .main-content {
+            margin-left: 250px; /* Espaço para a sidebar */
+        }
+    </style>
+
+    <!-- Estilo customizado footer-->
+    <style>
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            padding: 3rem 0;
+            border-top: 1px solid #dee2e6;
+            border-radius: 0.3rem;
+        }
+        footer .text-muted a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        footer .text-muted a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Marca -->
+            <a class="navbar-brand" href="HomePage.html">SEON</a>
+
+            <!-- Botão hamburguer para telas pequenas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu colapsável -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="HomePage.html">Home <span class="visually-hidden">(página atual)</span></a>
+                    </li>
+
+                    <!-- The Network -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownNetwork" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            The Network
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownNetwork">
+                            <li><a class="dropdown-item" href="HomePage.html">SEON</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#definition">Definition</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#architeture">Architecture</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#references">References</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Networked Ontologies -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownOntologies" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Networked Ontologies
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownOntologies">
+                            <li><a class="dropdown-item disabled">Foundational Layer</a></li>
+                            <li><a class="dropdown-item" href="UFO.html">UFO</a></li>
+                            <li><a class="dropdown-item disabled">Core Layer</a></li>
+                            <li><a class="dropdown-item" href="SysSwO.html">SysSwO</a></li>
+                            <li><a class="dropdown-item disabled">Domain Layer</a></li>
+                            <li><a class="dropdown-item" href="CMPO.html">CMPO</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Publications -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="Publications.html">Publications</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologydescription}" href="#ontologydescription">Ontology Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${relatedontologies}" href="#relatedontologies">Related Ontologies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologymodels}" href="#ontologymodels">Ontology Models</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${conceptsdefinition}" href="#conceptsdefinition">Concepts Definition</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${detailedconcepts}" href="#detailedconcepts">Detailed Concepts</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main role="main" class="main-content col">
+            <section class="bg-light p-5 rounded mb-4">
+                <div th:replace="~{fragments/additional-info :: info}"><div class="container-fluid d-flex justify-content-end"><span class="badge bg-danger text-lowercase">Unknown</span></div></div>
+                <h1 class="display-4">The <span th:text="${title}">Requirements Development Process Ontology (RDPO)</span></h1>
+                <p class="lead text-end fst-italic" th:text="${ontoLevel}"><i class="bi bi-star-fill"></i> Domain Ontology from SEON</p>
+                <small><i class="bi-dot"></i><span th:utext="${ontoPublishedPaper}">RDPO published paper</span></small>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 1. Ontology Description -->
+            <section class="section p-5 rounded" id="ontologydescription">
+                <h2 class="display-6">1. Ontology Description</h2>
+                <p class="lead text-justify" th:text="${description}">The Requirements Development Process Ontology (RDPO) aims at representing the activities, artifacts and stakeholders involved in the Requirement Development Process. Since RDPO describes the first technical process in software development, it defines some of the base elements to be reused by other SEON networked ontologies.</p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 2. Related Ontologies -->
+            <section class="section p-5 rounded" id="relatedontologies">
+                <h2 class="display-6">2. Related Ontologies</h2>
+                <p class="lead">Networked ontologies used by <span th:text="${onto}">RDPO</span>:</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="relatedOntologiesCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ontology</th>
+                            <th scope="col">Relation</th>
+                            <th scope="col">Integration Level</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${myOntologyDependencies}"><tr><td><a class="text-dark" href="RSRO.html" target="_blank">RSRO - Reference Software Requirements Ontology</a></td><td>RDPO imports concepts from RSRO for defining its artifacts and agents.</td><td class="text-center">High</td></tr>
+<tr><td><a class="text-dark" href="#" target="_blank">SPO - Software Process Ontology</a></td><td><span class="text-danger fw-bold">No definition available</span></td><td class="text-center"></td></tr>
+</tbody>
+                        <caption id="relatedOntologiesCaption">
+                            <small>Ontologies (re)used by <span th:text="${onto}">RDPO</span>.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 3. Ontology Models -->
+            <section class="section p-5 rounded" id="ontologymodels">
+                <h2 class="display-6">3. Ontology Models</h2>
+                <p class="lead" th:text="${sectionContent}"><p class="lead">Figure 1 presents the conceptual model of the RDPO.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Domain Layer/RDPO/RDPO.png" width="1142" class="map img-fluid" usemap="#RDPO" alt="Diagram of RDPO"><map name="RDPO">
+<area shape="rect" coords="769,157,895,204" href="SysSwO.html#SysSwO_Software+Artifact" target="_blank" alt="Object intentionally made to serve a given purpose in the context of a software Project or Organization.
+@Ex.: a document, a model, a library, an e-mail, a bug.">
+<area shape="rect" coords="612,294,753,324" href="SysSwO.html#SysSwO_Complex+Sw+Artifact" target="_blank" alt="Artifact composed of other Artifacts.">
+<area shape="rect" coords="663,251,795,281" href="SysSwO.html#SysSwO_Atomic+Sw+Artifact" target="_blank" alt="Artifact that is not decomposed into other Artifacts.">
+<area shape="rect" coords="826,294,951,324" href="SysSwO.html#SysSwO_Information+Item" target="_blank" alt="Relevant information for human use, produced or used by Performed Activity.
+@Ex.: a documented requirement, a bug reported, an agreement e-mail, a component description.">
+<area shape="rect" coords="947,294,1004,324" href="SysSwO.html#SysSwO_Model" target="_blank" alt="A representation (abstraction) of a process or system from a particular perspective.
+@Ex.: a use case model, a class model, a component model.">
+<area shape="rect" coords="1010,294,1092,324" href="SysSwO.html#SysSwO_Document" target="_blank" alt="Any written or pictorial, uniquely identified, information related to the software development, usually presented in a predefined format.
+@Ex.: a Requirements Document, a specification, a report.">
+<area shape="rect" coords="149,10,282,40" href="##SPO_Performed+Process" target="_blank" alt="Complex Action, composed of other processes or activities, performed in a specific Time Interval, for reaching a goal in a Project or Organization.
+@Ex.: Development, Configuration Management, Training performed processes.">
+<area shape="rect" coords="339,274,539,304" href="##SPO_Performed+Composite+Activity" target="_blank" alt="Performed Activity composed of other Performed Activities.">
+<area shape="rect" coords="441,234,619,264" href="##SPO_Performed+Simple+Activity" target="_blank" alt="Performed Activity that is not further decomposed into other Performed Activities.">
+<area shape="rect" coords="77,82,260,112" href="##SPO_Performed+General+Process" target="_blank" alt="The overall Performed Process executed in a specific Project or Organization, which is necessarily composed of Specific Performed Processes.
+@Ex.: the overall process performed in a software project.">
+<area shape="rect" coords="174,119,356,149" href="##SPO_Performed+Specific+Process" target="_blank" alt="Performed Process that is part of the General Performed Process of a Project or Organization, necessarily composed of at least two Performed Activities.
+@Ex.: the Project Management Process performed in a specific project; the Portfolio Management Process performed in an organization.">
+<area shape="rect" coords="400,157,537,204" href="##SPO_Performed+Activity" target="_blank" alt="Action performed, in a specific Time Interval, by a Stakeholder, potentially producing and consuming Artifacts, as part of a Specific Performed Process.
+@Ex.: Requirement Elicitation, Component Design, Coding, Integration Test, Training Planning.">
+<area shape="rect" coords="73,173,162,203" href="##SPO_Stakeholder" target="_blank" alt="Agent (Person, Team or Organization) interested or affected by the process activities or results.
+@Ex.: an Analyst, a Programmer, a User, a Testing Team, a Client Organization.">
+<area shape="rect" coords="805,673,980,703" href="RDPO.html#RDPO_Requirements+Agreement" target="_blank" alt="Information Item representing the agreement achieved by the Stakeholders, regarding the Requirements for the product.
+@Ex.: the agreement on the requirements than can be contained in an e-mail or in a document section.">
+<area shape="rect" coords="349,673,637,703" href="RDPO.html#RDPO_Requirements+Negotiation+and+Prioritization" target="_blank" alt="Composite Performed Activity executed to solve problems in the requirements and to reach an agreement on the set of requirements to be considered in the Project and their priorities.">
+<area shape="rect" coords="349,612,618,642" href="RDPO.html#RDPO_Requirements+Verification+and+Validation" target="_blank" alt="Composite Performed Activity executed for evaluating Documented Requirements and Conceptual Models registered in Requirements Documents, and for recording the identified problems.">
+<area shape="rect" coords="88,430,250,460" href="RSRO.html#RSRO_Requirements+Engineer" target="_blank" alt="Stakeholder responsible for conducting the requirements development activities.
+@Ex.: an organization employee assigned as Requirements Engineer in the requirements development activities.">
+<area shape="rect" coords="192,348,429,378" href="RDPO.html#RDPO_Requirements+Development+Process" target="_blank" alt="Specific Performed Process for establishing and developing the requirements for a system or software.">
+<area shape="rect" coords="935,712,1101,742" href="RSRO.html#RSRO_Functional+Requirement" target="_blank" alt="Requirement defining a function to be available in the product being built.
+@Ex.: The need for the system to control client orders.">
+<area shape="rect" coords="937,749,1132,779" href="RSRO.html#RSRO_Non-Functional+Requirement" target="_blank" alt="Requirement defining criteria or capabilities for the product.
+@Ex.: Being accessible from some specific browsers, Being in conformance with a standard, Performing a function in an established time.">
+<area shape="rect" coords="906,489,1034,519" href="RDPO.html#RDPO_Conceptual+Model" target="_blank" alt="Model describing the Product Requirements under different and relevant views.
+@Ex.: a class diagram.">
+<area shape="rect" coords="347,551,549,581" href="RDPO.html#RDPO_Requirements+Documentation" target="_blank" alt="Composite Performed Activity executed for recording Documented Requirements and related Conceptual Models in Requirements Documents, assuring proper recording and management of them during and after the project.">
+<area shape="rect" coords="347,490,495,520" href="RDPO.html#RDPO_Conceptual+Modeling" target="_blank" alt="Composite Performed Activity executed for modeling requirements, producing Conceptual Models that provide a more comprehensive view of the problem.">
+<area shape="rect" coords="347,429,516,459" href="RDPO.html#RDPO_Requirements+Elicitation" target="_blank" alt="Composite Performed Activity executed for identifying requirements from the Stakeholders and other sources, and documenting them.">
+<area shape="rect" coords="69,389,249,419" href="RSRO.html#RSRO_Requirements+Stakeholder" target="_blank" alt="Stakeholder that provides needs and expectations for the product.
+@Ex.: users, operators, customers, suppliers.">
+<area shape="rect" coords="847,551,1017,581" href="RSRO.html#RSRO_Requirements+Document" target="_blank" alt="Document composed of Documented Requirements and related information, as a basis for other technical software processes, including maintenance.
+@Ex.: the Requirements Document of the Alfa Project.">
+<area shape="rect" coords="922,255,1046,285" href="SysSwO.html#SysSwO_Software+Product" target="_blank" alt="One or more computer programs together with any accompanying auxiliary items, such as documentation, delivered under a single name, ready for use.
+@Ex.: Astah modeling tool, Microsoft Word, Eclipse IDE.">
+<area shape="rect" coords="813,255,919,285" href="SysSwO.html#SysSwO_Software+Item" target="_blank" alt="Piece of software, produced during the software process, not considered a complete Software Product, but an intermediary result.
+@Ex.: a component, database schema, a script.">
+<area shape="rect" coords="1021,654,1120,684" href="RSRO.html#RSRO_Requirement" target="_blank" alt="Goal to be achieved, representing a condition or capacity needed for the system users for solving a problem.
+@Ex.: Providing a product register; Performing a function in an established time.">
+<area shape="rect" coords="724,429,872,459" href="RSRO.html#RSRO_Requirement+Artifact" target="_blank" alt="Information Item describing a Requirement.
+@Ex.: "The system shall provide a product register.", "The system shall control the client orders.", "The system shall be operable from Google Chrome version 32+."">
+<area shape="rect" coords="877,612,1114,642" href="RDPO.html#RDPO_Requirements+Evaluation+Document" target="_blank" alt="Document pointing out problems identified in Documented Requirements and Conceptual Models registered in a Requirements Document.">
+<area shape="rect" coords="20,349,183,379" href="RDPO.html#RDPO_Requirements+Reviewer" target="_blank" alt="Stakeholder responsible for conducting reviews in requirements artifacts.
+@Ex.: the person in charge of the Requirements Verification and Validation activity."></map>
+<p class="fw-bold mt-4">Figure 1. RDPO Conceptual Model.</p></div>
+<p class="lead text-justify">Requirements Development Process is a Performed Process with the purpose of conducting the establishment and development of requirements, from the elicitation to the agreement. It is composed of five Performed Activities: (1) The Requirements Elicitation activity identifies a set of Functional and Non-Functional Requirements and documents them as Documented Requirements. This activity counts on the participation of the Requirements Stakeholders and can collect information from other sources (not presented in the model). (2) Conceptual Modeling uses the Documented Requirements for developing Conceptual Models (e.g. a class diagram), providing relevant views of the problem. (3) Requirements Documentation creates the Requirements Document, which is composed of Documented Requirements and describes the Conceptual Models and possibly other related information. (4) Requirements Verification and Validation evaluates requirements and models documented in the Requirements Document, producing the Requirements Evaluation Document. (5) Finally, Requirements Agreement is obtained from the authorized Requirements Stakeholders in the Requirements Negotiation and Prioritization activity.<br/>Considering Stakeholders, the Requirements Engineer is in charge of all activities of the Requirements Development Process, except for Requirements Verification and Validation where he/she participates in, but the responsibility is of the Requirements Reviewer. The Requirements Stakeholder participates only in Requirements Elicitation and, then, in Requirements Verification and Validation and Requirements Negotiation and Prioritization.<br/>The Requirements Development Process can be applied for dealing with different levels of Documented Requirements. For example, it can deal with more general requirements such as higher level Customer Requirements, typically identified in software development preliminary stages, or with a more detailed level such as Product Requirements, defined in more advanced stages.</p>
+</p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 4. Concepts Definition -->
+            <section class="section p-5 rounded" id="conceptsdefinition">
+                <h2 class="display-6">4. Concepts Definition</h2>
+                <p class="lead">The following table shows the definitions for <span th:text="${onto}">RDPO</span> concepts.</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="conceptsDefinitionCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Concept</th>
+                            <th scope="col">Definition</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${conceptDefinitions}"><tr><td><p id="RDPO_Conceptual+Model"><span class="fw-bold">Conceptual Model</span><a class="text-muted" href="#RDPO_Conceptual+Model_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Model describing the Product Requirements under different and relevant views.@Ex.: a class diagram.</p></td></tr>
+<tr><td><p id="RDPO_Conceptual+Modeling"><span class="fw-bold">Conceptual Modeling</span><a class="text-muted" href="#RDPO_Conceptual+Modeling_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Composite Performed Activity executed for modeling requirements, producing Conceptual Models that provide a more comprehensive view of the problem.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Agreement"><span class="fw-bold">Requirements Agreement</span><a class="text-muted" href="#RDPO_Requirements+Agreement_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Information Item representing the agreement achieved by the Stakeholders, regarding the Requirements for the product.@Ex.: the agreement on the requirements than can be contained in an e-mail or in a document section.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Development+Process"><span class="fw-bold">Requirements Development Process</span><a class="text-muted" href="#RDPO_Requirements+Development+Process_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Specific Performed Process for establishing and developing the requirements for a system or software.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Documentation"><span class="fw-bold">Requirements Documentation</span><a class="text-muted" href="#RDPO_Requirements+Documentation_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Composite Performed Activity executed for recording Documented Requirements and related Conceptual Models in Requirements Documents, assuring proper recording and management of them during and after the project.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Elicitation"><span class="fw-bold">Requirements Elicitation</span><a class="text-muted" href="#RDPO_Requirements+Elicitation_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Composite Performed Activity executed for identifying requirements from the Stakeholders and other sources, and documenting them.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Evaluation+Document"><span class="fw-bold">Requirements Evaluation Document</span><a class="text-muted" href="#RDPO_Requirements+Evaluation+Document_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Document pointing out problems identified in Documented Requirements and Conceptual Models registered in a Requirements Document.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Negotiation+and+Prioritization"><span class="fw-bold">Requirements Negotiation and Prioritization</span><a class="text-muted" href="#RDPO_Requirements+Negotiation+and+Prioritization_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Composite Performed Activity executed to solve problems in the requirements and to reach an agreement on the set of requirements to be considered in the Project and their priorities.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Reviewer"><span class="fw-bold">Requirements Reviewer</span><a class="text-muted" href="#RDPO_Requirements+Reviewer_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Stakeholder responsible for conducting reviews in requirements artifacts.@Ex.: the person in charge of the Requirements Verification and Validation activity.</p></td></tr>
+<tr><td><p id="RDPO_Requirements+Verification+and+Validation"><span class="fw-bold">Requirements Verification and Validation</span><a class="text-muted" href="#RDPO_Requirements+Verification+and+Validation_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Composite Performed Activity executed for evaluating Documented Requirements and Conceptual Models registered in Requirements Documents, and for recording the identified problems.</p></td></tr>
+</tbody>
+                        <caption id="conceptsDefinitionCaption">
+                            <small><span th:text="${onto}">RDPO</span> concepts definition.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. Detailed Concepts -->
+            <section class="section p-5 rounded" id="detailedconcepts">
+                <h2 class="display-6">5. Detailed Concepts</h2>
+                <p class="lead"><span th:text="${title}">Requirements Development Process Ontology (RDPO)</span> detailed concepts.</p>
+                <div th:utext="${detailedConcepts}"><hr><div class="container-fluid" id="RDPO_Conceptual+Model_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Conceptual Model</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;subkind&gt;&gt;</code><br><span class="fw-bold">Conceptual Model</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Model</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Model describing the Product Requirements under different and relevant views.@Ex.: a class diagram.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Conceptual Modeling creates Conceptual Model<br>Requirements Document describes Conceptual Model<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Conceptual+Modeling_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Conceptual Modeling</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;event&gt;&gt;</code><br><span class="fw-bold">Conceptual Modeling</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Composite Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Composite Performed Activity executed for modeling requirements, producing Conceptual Models that provide a more comprehensive view of the problem.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Conceptual Modeling creates Conceptual Model<br>Conceptual Modeling uses Requirement Artifact<br>Requirements Engineer is in charge of Conceptual Modeling<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Agreement_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Agreement</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;subkind&gt;&gt;</code><br><span class="fw-bold">Requirements Agreement</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Information Item</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Information Item representing the agreement achieved by the Stakeholders, regarding the Requirements for the product.@Ex.: the agreement on the requirements than can be contained in an e-mail or in a document section.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Negotiation and Prioritization creates Requirements Agreement<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Development+Process_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Development Process</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;event&gt;&gt;</code><br><span class="fw-bold">Requirements Development Process</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Specific Process</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Specific Performed Process for establishing and developing the requirements for a system or software.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Development Process <>-- Requirements Elicitation<br>Requirements Development Process <>-- Requirements Documentation<br>Requirements Development Process <>-- Requirements Negotiation and Prioritization<br>Requirements Development Process <>-- Requirements Verification and Validation<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Documentation_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Documentation</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;event&gt;&gt;</code><br><span class="fw-bold">Requirements Documentation</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Composite Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Composite Performed Activity executed for recording Documented Requirements and related Conceptual Models in Requirements Documents, assuring proper recording and management of them during and after the project.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Engineer is in charge of Requirements Documentation<br>Requirements Documentation uses Requirement Artifact<br>Requirements Documentation creates Requirements Document<br>Requirements Development Process <>-- Requirements Documentation<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Elicitation_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Elicitation</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;event&gt;&gt;</code><br><span class="fw-bold">Requirements Elicitation</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Composite Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Composite Performed Activity executed for identifying requirements from the Stakeholders and other sources, and documenting them.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Stakeholder participates in Requirements Elicitation<br>Requirements Elicitation creates Requirement Artifact<br>Requirements Engineer is in charge of Requirements Elicitation<br>Requirements Development Process <>-- Requirements Elicitation<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Evaluation+Document_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Evaluation Document</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;subkind&gt;&gt;</code><br><span class="fw-bold">Requirements Evaluation Document</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SysSwO::Document</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Document pointing out problems identified in Documented Requirements and Conceptual Models registered in a Requirements Document.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Verification and Validation creates Requirements Evaluation Document<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Negotiation+and+Prioritization_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Negotiation and Prioritization</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;event&gt;&gt;</code><br><span class="fw-bold">Requirements Negotiation and Prioritization</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Composite Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Composite Performed Activity executed to solve problems in the requirements and to reach an agreement on the set of requirements to be considered in the Project and their priorities.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Stakeholder participates in Requirements Negotiation and Prioritization<br>Requirements Engineer is in charge of Requirements Negotiation and Prioritization<br>Requirements Development Process <>-- Requirements Negotiation and Prioritization<br>Requirements Negotiation and Prioritization depends on Requirements Verification and Validation<br>Requirements Negotiation and Prioritization creates Requirements Agreement<br>Requirements Negotiation and Prioritization changes Requirements Document<br>Requirements Negotiation and Prioritization changes Requirement Artifact<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Reviewer_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Reviewer</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;role&gt;&gt;</code><br><span class="fw-bold">Requirements Reviewer</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Stakeholder</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Stakeholder responsible for conducting reviews in requirements artifacts.@Ex.: the person in charge of the Requirements Verification and Validation activity.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Reviewer is in charge of Requirements Verification and Validation<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="RDPO_Requirements+Verification+and+Validation_detail"><h4><i class="bi bi-diagram-3"></i> RDPO::Requirements Verification and Validation</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><code class="text-muted">&lt;&lt;event&gt;&gt;</code><br><span class="fw-bold">Requirements Verification and Validation</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> SPO::Performed Composite Activity</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Composite Performed Activity executed for evaluating Documented Requirements and Conceptual Models registered in Requirements Documents, and for recording the identified problems.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Requirements Reviewer is in charge of Requirements Verification and Validation<br>Requirements Stakeholder participates in Requirements Verification and Validation<br>Requirements Engineer participates in Requirements Verification and Validation<br>Requirements Development Process <>-- Requirements Verification and Validation<br>Requirements Verification and Validation creates Requirements Evaluation Document<br>Requirements Verification and Validation uses Requirements Document<br>Requirements Negotiation and Prioritization depends on Requirements Verification and Validation<br></code></p></div></div></div>
+
+</div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-5 rounded border-top bg-light">
+    <div class="container">
+        <div class="row justify-content-md-center g-4">
+            <!-- Copyright -->
+            <div class="col-md-auto">
+                <h6>Copyright</h6>
+                <div class="d-flex align-items-center">
+                    <i class="material-icons text-muted me-1" aria-label="Símbolo de copyright">copyright</i>
+                    <span class="text-muted">
+                            <small th:text="'© ' + ${currentYear} + ' Simone Dornelas Costa'">© Nome a ser colocado</small>
+                        </span>
+                </div>
+            </div>
+
+            <!-- Powered by -->
+            <div class="col-md-auto">
+                <h6>Powered by</h6>
+                <ul class="list-unstyled text-muted">
+                    <li>
+                        <a href="https://nemo.inf.ufes.br/" target="_blank" class="text-muted text-decoration-none">
+                            <img src="../static/images/logoNemo.svg" alt="Logo NEMO" width="50" class="mb-1 d-block">
+                            NEMO
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ontologia -->
+            <div class="col-md-auto">
+                <h5 th:text="${ontoName}">RDPO</h5>
+                <ul class="list-unstyled text-muted">
+                    <li><small><a th:href="${onlyNameLink}" href="#" class="text-muted" th:text="${onlyName}">Requirements Development Process Ontology</a></small></li>
+                    <li><small><a th:href="${onLevelLink}" href="#" class="text-muted" th:text="${onLevel}">Domain Ontology from SEON</a></small></li>
+                    <li><small><a th:href="${addInfoLink}" href="#" class="text-muted" th:text="${addInfo}">Unknown</a></small></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div class="col-md-auto">
+                <h6>Contact us</h6>
+                <ul class="list-unstyled text-muted">
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:simone.costa@ufes.br" class="text-muted">Email de algúem</a></small>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:monalessa@inf.ufes.br" class="text-muted">Email de alguém</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="row mt-4 justify-content-md-center">
+            <div class="col-md-auto">
+                <small class="text-muted" th:text="${date}">Sun Mar 02 18:29:06 BRT 2025</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>

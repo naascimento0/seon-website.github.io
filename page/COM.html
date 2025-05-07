@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SEON</title>
+    <!-- Favicon -->
+    <link rel="icon" href="../static/images/favicon.svg" sizes="32x32" type="image/svg">
+    <!-- CDN from Bootstrap website -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilo customizado -->
+    <style>
+        /* Tema verde claro */
+        :root {
+            --light-green: #d4edda; /* Verde claro principal */
+            --dark-green: #155724;  /* Verde escuro para contraste */
+            --mid-green: #c3e6cb;   /* Tom intermediário */
+            --text-muted-green: #6c757d; /* Mantém o cinza muted padrão */
+        }
+
+        /* Barra de navegação */
+        .navbar {
+            background-color: var(--light-green);
+            border-bottom: 1px solid var(--dark-green);
+        }
+        .navbar-brand, .nav-link {
+            color: var(--dark-green) !important;
+        }
+        .nav-link:hover, .nav-link:focus {
+            color: #0d3c17 !important; /* Tom mais escuro no hover */
+        }
+        .dropdown-menu {
+            background-color: var(--mid-green);
+        }
+        .dropdown-item {
+            color: var(--dark-green);
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        /* Corpo e seções */
+        body {
+            color: var(--dark-green);
+            padding-top: 70px; /* Espaço para navbar fixa */
+        }
+        .section, .bg-light {
+            border: 1px solid var(--mid-green);
+            border-radius: 0.3rem;
+            padding: 3rem;
+        }
+        .text-justify {
+            text-align: justify;
+        }
+        h1.display-4, h2.display-6 {
+            color: var(--dark-green);
+        }
+        .lead, small {
+            color: var(--dark-green);
+        }
+        hr {
+            border-color: var(--mid-green);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 60px; /* Abaixo da navbar */
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            border-right: 1px solid var(--mid-green);
+            padding: 1rem;
+            overflow-y: auto; /* Rolagem se necessário */
+        }
+        .sidebar .nav-link {
+            color: var(--dark-green);
+            padding: 0.5rem 1rem;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--mid-green);
+            color: var(--dark-green);
+        }
+        .sidebar .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Ajuste do main para a sidebar */
+        .main-content {
+            margin-left: 250px; /* Espaço para a sidebar */
+        }
+    </style>
+
+    <!-- Estilo customizado footer-->
+    <style>
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            padding: 3rem 0;
+            border-top: 1px solid #dee2e6;
+            border-radius: 0.3rem;
+        }
+        footer .text-muted a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        footer .text-muted a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Marca -->
+            <a class="navbar-brand" href="HomePage.html">SEON</a>
+
+            <!-- Botão hamburguer para telas pequenas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alternar navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu colapsável -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <!-- Home -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="HomePage.html">Home <span class="visually-hidden">(página atual)</span></a>
+                    </li>
+
+                    <!-- The Network -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownNetwork" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            The Network
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownNetwork">
+                            <li><a class="dropdown-item" href="HomePage.html">SEON</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#definition">Definition</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#architeture">Architecture</a></li>
+                            <li><a class="dropdown-item" href="HomePage.html#references">References</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Networked Ontologies -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownOntologies" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Networked Ontologies
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownOntologies">
+                            <li><a class="dropdown-item disabled">Foundational Layer</a></li>
+                            <li><a class="dropdown-item" href="UFO.html">UFO</a></li>
+                            <li><a class="dropdown-item disabled">Core Layer</a></li>
+                            <li><a class="dropdown-item" href="SysSwO.html">SysSwO</a></li>
+                            <li><a class="dropdown-item disabled">Domain Layer</a></li>
+                            <li><a class="dropdown-item" href="CMPO.html">CMPO</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Publications -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="Publications.html">Publications</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologydescription}" href="#ontologydescription">Ontology Description</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${relatedontologies}" href="#relatedontologies">Related Ontologies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${ontologymodels}" href="#ontologymodels">Ontology Models</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${conceptsdefinition}" href="#conceptsdefinition">Concepts Definition</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'#' + ${detailedconcepts}" href="#detailedconcepts">Detailed Concepts</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main role="main" class="main-content col">
+            <section class="bg-light p-5 rounded mb-4">
+                <div th:replace="~{fragments/additional-info :: info}"><div class="container-fluid d-flex justify-content-end"><span class="badge bg-danger text-lowercase">Unknown</span></div></div>
+                <h1 class="display-4">The <span th:text="${title}">Core Ontology on Measurement (external) (COM)</span></h1>
+                <p class="lead text-end fst-italic" th:text="${ontoLevel}"><i class="bi bi-star-half"></i> Core Ontology from SEON</p>
+                <small><i class="bi-dot"></i><span th:utext="${ontoPublishedPaper}">COM published paper</span></small>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 1. Ontology Description -->
+            <section class="section p-5 rounded" id="ontologydescription">
+                <h2 class="display-6">1. Ontology Description</h2>
+                <p class="lead text-justify" th:text="${description}"><span class="text-danger fw-bold">No definition available</span></p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 2. Related Ontologies -->
+            <section class="section p-5 rounded" id="relatedontologies">
+                <h2 class="display-6">2. Related Ontologies</h2>
+                <p class="lead">Networked ontologies used by <span th:text="${onto}">COM</span>:</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="relatedOntologiesCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Ontology</th>
+                            <th scope="col">Relation</th>
+                            <th scope="col">Integration Level</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${myOntologyDependencies}"><tr><td><a class="text-dark" href="UFO.html">UFO - Unified Foundational Ontology</a></td><td><span class="text-danger fw-bold">No definition available</span></td><td class="text-center"></td></tr>
+<tr><td><a class="text-dark" href="UFO.html">UFO - Unified Foundational Ontology</a></td><td>The COM concepts are derived from UFO.</td><td class="text-center">High</td></tr>
+</tbody>
+                        <caption id="relatedOntologiesCaption">
+                            <small>Ontologies (re)used by <span th:text="${onto}">COM</span>.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 3. Ontology Models -->
+            <section class="section p-5 rounded" id="ontologymodels">
+                <h2 class="display-6">3. Ontology Models</h2>
+                <p class="lead" th:text="${sectionContent}"><p class="lead text-center">No diagrams available for this package.</p>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="COM_Measurable+Entities_section">3.1.  Measurable Entities</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 1 presents the conceptual model of the 1 - Measurable Entities subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Core Layer/COM/Measurable Entities/1 - Measurable Entities.png" width="1159" class="map img-fluid" usemap="#1 - Measurable Entities" alt="Diagram of 1 - Measurable Entities"><map name="1 - Measurable Entities">
+<area shape="rect" coords="661,225,961,255" href="UFO.html#UFO_Measurable+Quality+Universal" target="" alt="Measurable Quality Universals are quality universals that can be objectively measured by cognitive agents or measurement devices, and it is possible to establish distances among their quality regions (@e.g., Weight and Height).">
+<area shape="rect" coords="856,329,1149,359" href="UFO.html#UFO_Composed+Quality+Universal" target="" alt="">
+<area shape="rect" coords="704,287,976,317" href="UFO.html#UFO_Simple+Quality+Universal" target="" alt="">
+<area shape="rect" coords="498,324,641,354" href="COM.html#COM_Measurable+Element" target="_blank" alt="Measurable property that characterizes a Measurable Entity Type.
+@Ex.: height is a measurable element that characterizes measurable entities of the Person type.">
+<area shape="rect" coords="415,411,608,441" href="COM.html#COM_Directly+Measurable+Element" target="_blank" alt="Measurable Element that does not depend on others to be measured. @Ex.: weight and height.">
+<area shape="rect" coords="638,411,843,441" href="COM.html#COM_Indirectly+Measurable+Element" target="_blank" alt="Measurable Element that depends on others (its sub-elements) to be measured. @Ex.: body mass index is an indirectly measurable element measured from weight and height.">
+<area shape="rect" coords="22,225,151,255" href="COM.html#COM_Measurable+Entity" target="_blank" alt="Anything that can be measured. @Ex.: a person, a project, an organization.">
+<area shape="rect" coords="302,226,463,256" href="COM.html#COM_Measurable+Entity+Type" target="_blank" alt="Type of entities that can be measured.
+@Ex.: John is a measurable entity of the type Person.">
+<area shape="rect" coords="834,21,1009,51" href="UFO.html#UFO_Moment+Universal" target="" alt="NOVA DESCRIÇÃO: Moment Universals are those universals whose instances are Moments.
+">
+<area shape="rect" coords="837,166,1006,196" href="UFO.html#UFO_Quality+Universal" target="" alt="Quality Universals are those universals whose instances are Qualities.">
+<area shape="rect" coords="814,99,1035,129" href="UFO.html#UFO_Intrisic+Moment+Universal" target="" alt="NOVA DESCRIÇÃO: Intrinsic Moment Universals are those universals whose instances are Intrinsic Moments.">
+<area shape="rect" coords="10,164,131,194" href="UFO.html#UFO_Universal" target="" alt="NOVA DESCRIÇÃO: Universals are pattern of features, which can be common in a number of different individuals
+">
+<area shape="rect" coords="331,164,426,194" href="UFO.html#UFO_2ndOT" target="" alt="">
+<area shape="rect" coords="206,21,306,51" href="UFO.html#UFO_Entity" target="" alt="Entity is the topmost category of UFO, representing anything, concrete or abstract, and both types and individuals."></map>
+<p class="fw-bold mt-4">Figure 1. 1 - Measurable Entities Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="COM_Measure_section">3.2.  Measure</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 2 presents the conceptual model of the 2 - Measure subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Core Layer/COM/Measure/2 - Measure.png" width="1741" class="map img-fluid" usemap="#2 - Measure" alt="Diagram of 2 - Measure"><map name="2 - Measure">
+<area shape="rect" coords="1224,266,1452,296" href="UFO.html#UFO_Measurement+Reference+Structure" target="" alt="Measurement Reference Structures act as scales based on quality structures. They are composed of Measurement Reference Regions. Measurement Reference Structures can be partitioned into spaces of the same magnitude according to a Unit.">
+<area shape="rect" coords="1518,266,1730,296" href="UFO.html#UFO_Measurement+Reference+Region" target="" alt="">
+<area shape="rect" coords="1223,412,1274,442" href="COM.html#COM_Scale" target="_blank" alt="Delimitates the space of values possible to be associated by a Measure to a Measurable Element. @Ex.: the scale of the measure height in meters is a liner structure isomorphic to the positive half-line of the real numbers.">
+<area shape="rect" coords="1198,532,1286,562" href="COM.html#COM_Scale+Value" target="_blank" alt="Value that compose a Scale.
+@Ex.: 0.5, 1, 1.8 are examples of values that compose the scale of the measure height in meters.">
+<area shape="rect" coords="1337,329,1572,359" href="UFO.html#UFO_Measurement+Reference+Dimension" target="" alt="">
+<area shape="rect" coords="1293,435,1472,465" href="UFO.html#UFO_Ordinal+MeaRefDimension" target="" alt="">
+<area shape="rect" coords="1421,396,1602,426" href="UFO.html#UFO_Interval+MeaRefDimension" target="" alt="">
+<area shape="rect" coords="1522,435,1705,465" href="UFO.html#UFO_Rational+MeaRefDimension" target="" alt="">
+<area shape="rect" coords="1298,498,1398,528" href="COM.html#COM_Ordinal+Scale" target="_blank" alt="Scale whose Scale Values can be mapped to a certain order or ranking. @Ex.: the measure client satisfaction degree, which can be mapped to the values “high”, “medium” or “low”, has an Ordinal Scale.">
+<area shape="rect" coords="1428,498,1530,528" href="COM.html#COM_Interval+Scale" target="_blank" alt="Scale in which it is possible to quantify the distance between its Scale Values and there is not a value to represent nonentity (absolute zero). In an Interval Scale, although it is possible to quantify the distance between Scale Values, it is not possible to establish other relations between them. @Ex.: the measure temperature in Celsius degree has an interval scale, since it is possible to quantify the distance between its scale values (e.g., there are 10o between the temperatures 20oC and 30oC), 0oC does not mean the absence of temperature and it is not possible to establish relations between scale values (e.g., we cannot say that 50oC is twice hotter than 25oC).">
+<area shape="rect" coords="1558,498,1662,528" href="COM.html#COM_Rational+Scale" target="_blank" alt="Scale in which it is possible to quantify the distance between its Scale Values, there is a value to represent nonentity (absolute zero) and it is possible to establish relations between Scale Values.
+@Ex.: the measure distance in kilometers has a rational scale, since 0km means the absence of distance, it is possible to quantify the distance between scale values (e.g., there are 10km between the distances 20km and 30km) as well as establish other relations between them (e.g., we can say that 100km is twice longer than 50km).">
+<area shape="rect" coords="765,190,889,220" href="UFO.html#UFO_Quality+Structure" target="" alt="">
+<area shape="rect" coords="1264,190,1405,220" href="UFO.html#UFO_Reference+Structure" target="" alt="">
+<area shape="rect" coords="516,326,659,356" href="COM.html#COM_Measurable+Element" target="_blank" alt="Measurable property that characterizes a Measurable Entity Type.
+@Ex.: height is a measurable element that characterizes measurable entities of the Person type.">
+<area shape="rect" coords="570,105,768,135" href="UFO.html#UFO_Measurable+Quality+Universal" target="" alt="Measurable Quality Universals are quality universals that can be objectively measured by cognitive agents or measurement devices, and it is possible to establish distances among their quality regions (@e.g., Weight and Height).">
+<area shape="rect" coords="725,252,936,282" href="UFO.html#UFO_Measurement+Quality+Structure" target="" alt="">
+<area shape="rect" coords="731,315,932,345" href="UFO.html#UFO_Measurement+Quality+Domain" target="" alt="">
+<area shape="rect" coords="724,368,936,398" href="UFO.html#UFO_Scientific+Measurement+Domain" target="" alt="">
+<area shape="rect" coords="780,448,868,478" href="UFO.html#UFO_Expression" target="" alt="">
+<area shape="rect" coords="749,660,906,690" href="COM.html#COM_Measurement+Formula" target="_blank" alt="Formula that quantifies relations between Measures from which a Derived Measure is obtained. @Ex.: the measure body mass index in kilos and meters (BMI) can be calculated from the measures weight in kilos (w) and height in meters (h) by applying the measurement formula BMI = w/(h*h).">
+<area shape="rect" coords="572,455,777,485" href="COM.html#COM_Indirectly+Measurable+Element" target="_blank" alt="Measurable Element that depends on others (its sub-elements) to be measured. @Ex.: body mass index is an indirectly measurable element measured from weight and height.">
+<area shape="rect" coords="449,412,642,442" href="COM.html#COM_Directly+Measurable+Element" target="_blank" alt="Measurable Element that does not depend on others to be measured. @Ex.: weight and height.">
+<area shape="rect" coords="168,239,308,375" href="COM.html#COM_Measure" target="_blank" alt="Function used to associate a value (Measured Value) to a Measurable Element of a Measurable Entity. Measures quantify Measurable Elements and characterize Measurable Entity Types.
+@Ex.: the measure height in meters can be used to quantify the measurable element height of measurable entities of the type Person.">
+<area shape="rect" coords="178,414,282,444" href="COM.html#COM_Base+Measure" target="_blank" alt="Measure used to quantify a Directly Measurable Element.
+@Ex.: the base measure height in meters can be used to quantify the directly measurable element height.">
+<area shape="rect" coords="88,455,210,485" href="COM.html#COM_Derived+Measure" target="_blank" alt="Measure used to quantify an Indirectly Measurable Element.
+@Ex.: the measure body mass index in kilos and meters can be used to quantify the indirectly measurable element body mass index.">
+<area shape="rect" coords="1056,216,1166,246" href="UFO.html#UFO_Quality+Region" target="" alt="">
+<area shape="rect" coords="1016,276,1212,306" href="UFO.html#UFO_Measurement+Quality+Region" target="" alt="">
+<area shape="rect" coords="802,75,842,105" href="UFO.html#UFO_Set" target="" alt="NOVA DESCRIÇÃO: A Set is a collection of distinct entities. ">
+<area shape="rect" coords="773,10,881,40" href="UFO.html#UFO_Abstract+Thing" target="" alt="">
+<area shape="rect" coords="347,70,420,100" href="UFO.html#UFO_Function" target="" alt="Function is a specialization of Set that maps instances of a Quality Universal to points in a Quality Structure.">
+<area shape="rect" coords="1042,337,1088,367" href="UFO.html#UFO_Unit" target="" alt="">
+<area shape="rect" coords="936,399,1037,429" href="COM.html#COM_Measure+Unit" target="_blank" alt="Unit in which measures can be expressed. @Ex.: meter, kilo, hour.">
+<area shape="rect" coords="410,559,579,589" href="COM.html#COM_Measurement+Procedure" target="_blank" alt="Procedure applicable to a Measure and that describe the steps to be carried out to collect data for it.
+@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.">
+<area shape="rect" coords="435,169,596,199" href="COM.html#COM_Measurable+Entity+Type" target="_blank" alt="Type of entities that can be measured.
+@Ex.: John is a measurable entity of the type Person.">
+<area shape="rect" coords="411,659,645,689" href="COM.html#COM_Derivative+Measurement+Procedure" target="_blank" alt="Measurement Procedure applicable to a Derived Measure.
+@Ex.: Measurement procedure to collect data for the measure body mass index in kilos and meters: Obtain the values measured to the measures weight in kilos and and height in meters considering a same measurement date.  Apply the measurement formula to calculate the body mass index in kilos and meters. Record the measured value and the measurement date.">
+<area shape="rect" coords="156,624,359,654" href="COM.html#COM_Basic+Measurement+Procedure" target="_blank" alt="Measurement Procedure applicable to a Base Measure.
+@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.">
+<area shape="rect" coords="464,105,559,135" href="UFO.html#UFO_2ndOT" target="" alt="">
+<area shape="rect" coords="595,498,752,528" href="UFO.html#UFO_Normative+Description" target="" alt="Normative Descriptions are Social Objects that define one or more rules/norms recognized by at least one Social Agent and that can define other Social objects (the crown of the king of Spain) or Social Roles (such as president, PhD candidate or pedestrian). @Examples of normative descriptions include the Brazilian Constitution, the Federal University of Espírito Santo PhD program regulation, but also a set of directives on how to perform some actions within an organization (a Plan Description)."></map>
+<p class="fw-bold mt-4">Figure 2. 2 - Measure Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="COM_Measurement+Planning_section">3.3.  Measurement Planning</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 3 presents the conceptual model of the 3-Measurement Planning subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Core Layer/COM/Measurement Planning/3-Measurement Planning.png" width="980" class="map img-fluid" usemap="#3-Measurement Planning" alt="Diagram of 3-Measurement Planning"><map name="3-Measurement Planning">
+<area shape="rect" coords="182,21,273,51" href="UFO.html#UFO_Goal" target="" alt="The propositional content of an Intention.">
+<area shape="rect" coords="174,201,308,231" href="COM.html#COM_Measurement+Goal" target="_blank" alt="Goal that can be used to drive the identification of the Measures needed to provide information in a certain context. Measurement Goals are established based on more general Goals.
+@Ex.: in the context of a doctor’s office, a doctor could be the general goal of Taking a good care of the patients. From this general goal, could be established the measurement goal Monitor the patient health, which could be decomposed in others, such as Check if the patient has a good body mass index and Check if the patient has a good blood pressure.">
+<area shape="rect" coords="492,201,620,231" href="COM.html#COM_Information+Need" target="_blank" alt="Information Needs are identified from Measurement Goals and determine which information have to be met by Measures in order to monitor the achievement of the related Measurement Goal.
+@Ex.: the information need What is the patient body mass index? could be identified from the measurement goal Check if the patient has a good body mass index.">
+<area shape="rect" coords="503,419,575,449" href="COM.html#COM_Measure" target="_blank" alt="Function used to associate a value (Measured Value) to a Measurable Element of a Measurable Entity. Measures quantify Measurable Elements and characterize Measurable Entity Types.
+@Ex.: the measure height in meters can be used to quantify the measurable element height of measurable entities of the type Person.">
+<area shape="rect" coords="503,486,578,516" href="COM.html#COM_Indicator" target="_blank" alt="Measure directly used to indicate the achievement of Measurement Goals.
+@Ex.: the measure body mass index in kilos and meters could play the role of indicator when indicating the achievement of the measurement goal Check if the patient has a good body mass index.">
+<area shape="rect" coords="712,368,855,398" href="COM.html#COM_Measurable+Element" target="_blank" alt="Measurable property that characterizes a Measurable Entity Type.
+@Ex.: height is a measurable element that characterizes measurable entities of the Person type.">
+<area shape="rect" coords="767,267,928,297" href="COM.html#COM_Measurable+Entity+Type" target="_blank" alt="Type of entities that can be measured.
+@Ex.: John is a measurable entity of the type Person.">
+<area shape="rect" coords="279,334,472,364" href="COM.html#COM_Measurement+Planning+Item" target="_blank" alt="Social Object produced during Measurement Planning. A Measurement Planning Item specifies a Measurement Goal to be monitored, an Information Need to be considered, a Measure to be used to meet the Information Need and a Measurement Procedure to be applied to collect data for the Measure. Several Measurement Planning Items can be produced during Measurement Planning.
+@Ex.: the measurement planning item specifying the measurement goal Check if the patient has a good body mass index, the information need What is the patient body mass index?, the measure body mass index in kilos and meters to be collected by using the measurement procedure Obtain the values measured to the measures weight in grams and and height in centimeters considering a same measurement date; apply the measurement formula to calculate the body mass index in kilos and meters; record the measured value and the measurement date.">
+<area shape="rect" coords="132,419,301,449" href="COM.html#COM_Measurement+Procedure" target="_blank" alt="Procedure applicable to a Measure and that describe the steps to be carried out to collect data for it.
+@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.">
+<area shape="rect" coords="10,87,113,117" href="COM.html#COM_Complex+Goal" target="_blank" alt="Goal that is composed by others.
+@Ex.: the complex goal Monitor the patient health could be decomposed in Check if the patient has a good body mass index and Check if the patient has a good blood pressure.">
+<area shape="rect" coords="120,86,212,116" href="COM.html#COM_Simple+Goal" target="_blank" alt="Goal that is not composed by others.
+@Ex.:  Monitor the patient’s blood pressure.">
+<area shape="rect" coords="378,116,539,146" href="COM.html#COM_Measurement+Planning" target="_blank" alt="Action that plans the measurement, i.e., determines the Measurement Goals to be monitored, the Information Needs to be considered, the Measures to be collected to meet the Information Needs and the Measurement Procedures to be applied. ">
+<area shape="rect" coords="409,52,579,82" href="UFO.html#UFO_Event+(Perdurant)" target="" alt="Events (also called perdurants) are individuals composed of temporal parts. They happen in time in the sense that they extend in time accumulating temporal parts. @Examples of events are a conversation, a football game, a symphony execution, a birthday party, or a particular business process.">
+<area shape="rect" coords="288,268,430,298" href="UFO.html#UFO_Social+Object" target="" alt=""></map>
+<p class="fw-bold mt-4">Figure 3. 3-Measurement Planning Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="COM_Measurement_section">3.4.  Measurement</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 4 presents the conceptual model of the 4 - Measurement subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Core Layer/COM/Measurement/4 - Measurement.png" width="892" class="map img-fluid" usemap="#4 - Measurement" alt="Diagram of 4 - Measurement"><map name="4 - Measurement">
+<area shape="rect" coords="502,273,613,326" href="COM.html#COM_Measurement" target="_blank" alt="Action that measures a Measurable Element of a Measurable Entity by applying a Measure and adopting a Measurement Procedure to obtain a Measured Value. A Measurement is performed based on a Measurement Planning Item. @Ex.: the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos, adopting a certain measurement procedure and resulting in the measured value 75. ">
+<area shape="rect" coords="89,344,161,374" href="COM.html#COM_Measure" target="_blank" alt="Function used to associate a value (Measured Value) to a Measurable Element of a Measurable Entity. Measures quantify Measurable Elements and characterize Measurable Entity Types.
+@Ex.: the measure height in meters can be used to quantify the measurable element height of measurable entities of the type Person.">
+<area shape="rect" coords="498,432,627,462" href="COM.html#COM_Measurable+Entity" target="_blank" alt="Anything that can be measured. @Ex.: a person, a project, an organization.">
+<area shape="rect" coords="739,285,882,315" href="COM.html#COM_Measurable+Element" target="_blank" alt="Measurable property that characterizes a Measurable Entity Type.
+@Ex.: height is a measurable element that characterizes measurable entities of the Person type.">
+<area shape="rect" coords="503,176,619,206" href="COM.html#COM_Measured+Value" target="_blank" alt="Value obtained in a Measurement.
+@Ex.: the measured value 75 obtained in the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos.">
+<area shape="rect" coords="185,291,354,321" href="COM.html#COM_Measurement+Procedure" target="_blank" alt="Procedure applicable to a Measure and that describe the steps to be carried out to collect data for it.
+@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.">
+<area shape="rect" coords="514,117,602,147" href="COM.html#COM_Scale+Value" target="_blank" alt="Value that compose a Scale.
+@Ex.: 0.5, 1, 1.8 are examples of values that compose the scale of the measure height in meters.">
+<area shape="rect" coords="207,183,400,213" href="COM.html#COM_Measurement+Planning+Item" target="_blank" alt="Social Object produced during Measurement Planning. A Measurement Planning Item specifies a Measurement Goal to be monitored, an Information Need to be considered, a Measure to be used to meet the Information Need and a Measurement Procedure to be applied to collect data for the Measure. Several Measurement Planning Items can be produced during Measurement Planning.
+@Ex.: the measurement planning item specifying the measurement goal Check if the patient has a good body mass index, the information need What is the patient body mass index?, the measure body mass index in kilos and meters to be collected by using the measurement procedure Obtain the values measured to the measures weight in grams and and height in centimeters considering a same measurement date; apply the measurement formula to calculate the body mass index in kilos and meters; record the measured value and the measurement date.">
+<area shape="rect" coords="238,21,366,51" href="COM.html#COM_Information+Need" target="_blank" alt="Information Needs are identified from Measurement Goals and determine which information have to be met by Measures in order to monitor the achievement of the related Measurement Goal.
+@Ex.: the information need What is the patient body mass index? could be identified from the measurement goal Check if the patient has a good body mass index.">
+<area shape="rect" coords="10,124,144,154" href="COM.html#COM_Measurement+Goal" target="_blank" alt="Goal that can be used to drive the identification of the Measures needed to provide information in a certain context. Measurement Goals are established based on more general Goals.
+@Ex.: in the context of a doctor’s office, a doctor could be the general goal of Taking a good care of the patients. From this general goal, could be established the measurement goal Monitor the patient health, which could be decomposed in others, such as Check if the patient has a good body mass index and Check if the patient has a good blood pressure.">
+<area shape="rect" coords="415,58,729,88" href="UFO.html#UFO_Measurement+Reference+Region" target="" alt="">
+<area shape="rect" coords="334,391,385,421" href="COM.html#COM_Scale" target="_blank" alt="Delimitates the space of values possible to be associated by a Measure to a Measurable Element. @Ex.: the scale of the measure height in meters is a liner structure isomorphic to the positive half-line of the real numbers.">
+<area shape="rect" coords="645,165,815,195" href="UFO.html#UFO_Event+(Perdurant)" target="" alt="Events (also called perdurants) are individuals composed of temporal parts. They happen in time in the sense that they extend in time accumulating temporal parts. @Examples of events are a conversation, a football game, a symphony execution, a birthday party, or a particular business process."></map>
+<p class="fw-bold mt-4">Figure 4. 4 - Measurement Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div>
+<hr class="my-5"><div class="py-5"><h4 class="display-6" id="COM_Measurement+Analysis_section">3.5.  Measurement Analysis</h4>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+<p class="lead">Figure 5 presents the conceptual model of the 5 - Measurement Analysis subontology.</p>
+<div class="container-fluid my-5 text-center"><img src="images/astah_seon/SEON/Core Layer/COM/Measurement Analysis/5 - Measurement Analysis.png" width="843" class="map img-fluid" usemap="#5 - Measurement Analysis" alt="Diagram of 5 - Measurement Analysis"><map name="5 - Measurement Analysis">
+<area shape="rect" coords="282,243,439,273" href="COM.html#COM_Measurement+Analysis" target="_blank" alt="Action that analyzes Measure Values collected for Measures aiming to characterize a Measurable Entity and provide information related to a Measurement Goal. @Ex.: a measurement analysis could analyze the measured values 26, 25.5 e 24, collected for the measure body mass index in kilos and meters to characterize the measurable entity John.    ">
+<area shape="rect" coords="54,183,165,213" href="COM.html#COM_Analysis+Result" target="_blank" alt="Result produced by a Measurement Analysis. An Analysis Result characterizes a Measurable Entity and provides information related to a Measurement Goal.
+@Ex.: the analysis of the measured values 26, 25.5 e 24, collected for the measure body mass index in kilos and meters to the measurable entity John could produce the analysis result: The patient’s body mass index decreased from an overweight to a normal weight value and the patient has now a good body mass index. This analysis result characterizes the measurable entity John and provides information to the measurement goal Check if the patient has a good body mass index.">
+<area shape="rect" coords="316,334,388,364" href="COM.html#COM_Measure" target="_blank" alt="Function used to associate a value (Measured Value) to a Measurable Element of a Measurable Entity. Measures quantify Measurable Elements and characterize Measurable Entity Types.
+@Ex.: the measure height in meters can be used to quantify the measurable element height of measurable entities of the type Person.">
+<area shape="rect" coords="564,243,680,273" href="COM.html#COM_Measured+Value" target="_blank" alt="Value obtained in a Measurement.
+@Ex.: the measured value 75 obtained in the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos.">
+<area shape="rect" coords="569,334,673,364" href="COM.html#COM_Measurement" target="_blank" alt="Action that measures a Measurable Element of a Measurable Entity by applying a Measure and adopting a Measurement Procedure to obtain a Measured Value. A Measurement is performed based on a Measurement Planning Item. @Ex.: the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos, adopting a certain measurement procedure and resulting in the measured value 75. ">
+<area shape="rect" coords="38,334,167,364" href="COM.html#COM_Measurable+Entity" target="_blank" alt="Anything that can be measured. @Ex.: a person, a project, an organization.">
+<area shape="rect" coords="555,111,748,141" href="COM.html#COM_Measurement+Planning+Item" target="_blank" alt="Social Object produced during Measurement Planning. A Measurement Planning Item specifies a Measurement Goal to be monitored, an Information Need to be considered, a Measure to be used to meet the Information Need and a Measurement Procedure to be applied to collect data for the Measure. Several Measurement Planning Items can be produced during Measurement Planning.
+@Ex.: the measurement planning item specifying the measurement goal Check if the patient has a good body mass index, the information need What is the patient body mass index?, the measure body mass index in kilos and meters to be collected by using the measurement procedure Obtain the values measured to the measures weight in grams and and height in centimeters considering a same measurement date; apply the measurement formula to calculate the body mass index in kilos and meters; record the measured value and the measurement date.">
+<area shape="rect" coords="232,81,366,111" href="COM.html#COM_Measurement+Goal" target="_blank" alt="Goal that can be used to drive the identification of the Measures needed to provide information in a certain context. Measurement Goals are established based on more general Goals.
+@Ex.: in the context of a doctor’s office, a doctor could be the general goal of Taking a good care of the patients. From this general goal, could be established the measurement goal Monitor the patient health, which could be decomposed in others, such as Check if the patient has a good body mass index and Check if the patient has a good blood pressure.">
+<area shape="rect" coords="485,21,613,51" href="COM.html#COM_Information+Need" target="_blank" alt="Information Needs are identified from Measurement Goals and determine which information have to be met by Measures in order to monitor the achievement of the related Measurement Goal.
+@Ex.: the information need What is the patient body mass index? could be identified from the measurement goal Check if the patient has a good body mass index.">
+<area shape="rect" coords="664,376,833,406" href="COM.html#COM_Measurement+Procedure" target="_blank" alt="Procedure applicable to a Measure and that describe the steps to be carried out to collect data for it.
+@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.">
+<area shape="rect" coords="32,123,174,153" href="UFO.html#UFO_Social+Object" target="" alt="">
+<area shape="rect" coords="311,134,481,164" href="UFO.html#UFO_Event+(Perdurant)" target="" alt="Events (also called perdurants) are individuals composed of temporal parts. They happen in time in the sense that they extend in time accumulating temporal parts. @Examples of events are a conversation, a football game, a symphony execution, a birthday party, or a particular business process."></map>
+<p class="fw-bold mt-4">Figure 5. 5 - Measurement Analysis Conceptual Model.</p></div>
+<p class="lead text-justify"><span class="text-danger fw-bold">No definition available</span></p>
+
+</div></p>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- 4. Concepts Definition -->
+            <section class="section p-5 rounded" id="conceptsdefinition">
+                <h2 class="display-6">4. Concepts Definition</h2>
+                <p class="lead">The following table shows the definitions for <span th:text="${onto}">COM</span> concepts.</p>
+                <div class="table-responsive my-5">
+                    <table class="table table-hover" aria-describedby="conceptsDefinitionCaption">
+                        <thead>
+                        <tr>
+                            <th scope="col">Concept</th>
+                            <th scope="col">Definition</th>
+                        </tr>
+                        </thead>
+                        <tbody th:utext="${conceptDefinitions}"><tr><td><p id="COM_Analysis+Result"><span class="fst-italic fw-bold">Analysis Result</span><a class="text-muted" href="#COM_Analysis+Result_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Result produced by a Measurement Analysis. An Analysis Result characterizes a Measurable Entity and provides information related to a Measurement Goal.@Ex.: the analysis of the measured values 26, 25.5 e 24, collected for the measure body mass index in kilos and meters to the measurable entity John could produce the analysis result: The patient’s body mass index decreased from an overweight to a normal weight value and the patient has now a good body mass index. This analysis result characterizes the measurable entity John and provides information to the measurement goal Check if the patient has a good body mass index.</p></td></tr>
+<tr><td><p id="COM_Base+Measure"><span class="fst-italic fw-bold">Base Measure</span><a class="text-muted" href="#COM_Base+Measure_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measure used to quantify a Directly Measurable Element.@Ex.: the base measure height in meters can be used to quantify the directly measurable element height.</p></td></tr>
+<tr><td><p id="COM_Basic+Measurement+Procedure"><span class="fst-italic fw-bold">Basic Measurement Procedure</span><a class="text-muted" href="#COM_Basic+Measurement+Procedure_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measurement Procedure applicable to a Base Measure.@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.</p></td></tr>
+<tr><td><p id="COM_Complex+Goal"><span class="fst-italic fw-bold">Complex Goal</span><a class="text-muted" href="#COM_Complex+Goal_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Goal that is composed by others.@Ex.: the complex goal Monitor the patient health could be decomposed in Check if the patient has a good body mass index and Check if the patient has a good blood pressure.</p></td></tr>
+<tr><td><p id="COM_Derivative+Measurement+Procedure"><span class="fst-italic fw-bold">Derivative Measurement Procedure</span><a class="text-muted" href="#COM_Derivative+Measurement+Procedure_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measurement Procedure applicable to a Derived Measure.@Ex.: Measurement procedure to collect data for the measure body mass index in kilos and meters: Obtain the values measured to the measures weight in kilos and and height in meters considering a same measurement date.  Apply the measurement formula to calculate the body mass index in kilos and meters. Record the measured value and the measurement date.</p></td></tr>
+<tr><td><p id="COM_Derived+Measure"><span class="fst-italic fw-bold">Derived Measure</span><a class="text-muted" href="#COM_Derived+Measure_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measure used to quantify an Indirectly Measurable Element.@Ex.: the measure body mass index in kilos and meters can be used to quantify the indirectly measurable element body mass index.</p></td></tr>
+<tr><td><p id="COM_Directly+Measurable+Element"><span class="fst-italic fw-bold">Directly Measurable Element</span><a class="text-muted" href="#COM_Directly+Measurable+Element_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measurable Element that does not depend on others to be measured. @Ex.: weight and height.</p></td></tr>
+<tr><td><p id="COM_Indicator"><span class="fst-italic fw-bold">Indicator</span><a class="text-muted" href="#COM_Indicator_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measure directly used to indicate the achievement of Measurement Goals.@Ex.: the measure body mass index in kilos and meters could play the role of indicator when indicating the achievement of the measurement goal Check if the patient has a good body mass index.</p></td></tr>
+<tr><td><p id="COM_Indirectly+Measurable+Element"><span class="fst-italic fw-bold">Indirectly Measurable Element</span><a class="text-muted" href="#COM_Indirectly+Measurable+Element_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measurable Element that depends on others (its sub-elements) to be measured. @Ex.: body mass index is an indirectly measurable element measured from weight and height.</p></td></tr>
+<tr><td><p id="COM_Information+Need"><span class="fst-italic fw-bold">Information Need</span><a class="text-muted" href="#COM_Information+Need_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Information Needs are identified from Measurement Goals and determine which information have to be met by Measures in order to monitor the achievement of the related Measurement Goal.@Ex.: the information need What is the patient body mass index? could be identified from the measurement goal Check if the patient has a good body mass index.</p></td></tr>
+<tr><td><p id="COM_Interval+Scale"><span class="fst-italic fw-bold">Interval Scale</span><a class="text-muted" href="#COM_Interval+Scale_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Scale in which it is possible to quantify the distance between its Scale Values and there is not a value to represent nonentity (absolute zero). In an Interval Scale, although it is possible to quantify the distance between Scale Values, it is not possible to establish other relations between them. @Ex.: the measure temperature in Celsius degree has an interval scale, since it is possible to quantify the distance between its scale values (e.g., there are 10o between the temperatures 20oC and 30oC), 0oC does not mean the absence of temperature and it is not possible to establish relations between scale values (e.g., we cannot say that 50oC is twice hotter than 25oC).</p></td></tr>
+<tr><td><p id="COM_Measurable+Element"><span class="fst-italic fw-bold">Measurable Element</span><a class="text-muted" href="#COM_Measurable+Element_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Measurable property that characterizes a Measurable Entity Type.@Ex.: height is a measurable element that characterizes measurable entities of the Person type.</p></td></tr>
+<tr><td><p id="COM_Measurable+Entity"><span class="fst-italic fw-bold">Measurable Entity</span><a class="text-muted" href="#COM_Measurable+Entity_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Anything that can be measured. @Ex.: a person, a project, an organization.</p></td></tr>
+<tr><td><p id="COM_Measurable+Entity+Type"><span class="fst-italic fw-bold">Measurable Entity Type</span><a class="text-muted" href="#COM_Measurable+Entity+Type_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Type of entities that can be measured.@Ex.: John is a measurable entity of the type Person.</p></td></tr>
+<tr><td><p id="COM_Measure"><span class="fst-italic fw-bold">Measure</span><a class="text-muted" href="#COM_Measure_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Function used to associate a value (Measured Value) to a Measurable Element of a Measurable Entity. Measures quantify Measurable Elements and characterize Measurable Entity Types.@Ex.: the measure height in meters can be used to quantify the measurable element height of measurable entities of the type Person.</p></td></tr>
+<tr><td><p id="COM_Measure+Unit"><span class="fst-italic fw-bold">Measure Unit</span><a class="text-muted" href="#COM_Measure+Unit_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Unit in which measures can be expressed. @Ex.: meter, kilo, hour.</p></td></tr>
+<tr><td><p id="COM_Measured+Value"><span class="fst-italic fw-bold">Measured Value</span><a class="text-muted" href="#COM_Measured+Value_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Value obtained in a Measurement.@Ex.: the measured value 75 obtained in the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos.</p></td></tr>
+<tr><td><p id="COM_Measurement"><span class="fst-italic fw-bold">Measurement</span><a class="text-muted" href="#COM_Measurement_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Action that measures a Measurable Element of a Measurable Entity by applying a Measure and adopting a Measurement Procedure to obtain a Measured Value. A Measurement is performed based on a Measurement Planning Item. @Ex.: the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos, adopting a certain measurement procedure and resulting in the measured value 75. </p></td></tr>
+<tr><td><p id="COM_Measurement+Analysis"><span class="fst-italic fw-bold">Measurement Analysis</span><a class="text-muted" href="#COM_Measurement+Analysis_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Action that analyzes Measure Values collected for Measures aiming to characterize a Measurable Entity and provide information related to a Measurement Goal. @Ex.: a measurement analysis could analyze the measured values 26, 25.5 e 24, collected for the measure body mass index in kilos and meters to characterize the measurable entity John.    </p></td></tr>
+<tr><td><p id="COM_Measurement+Formula"><span class="fst-italic fw-bold">Measurement Formula</span><a class="text-muted" href="#COM_Measurement+Formula_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Formula that quantifies relations between Measures from which a Derived Measure is obtained. @Ex.: the measure body mass index in kilos and meters (BMI) can be calculated from the measures weight in kilos (w) and height in meters (h) by applying the measurement formula BMI = w/(h*h).</p></td></tr>
+<tr><td><p id="COM_Measurement+Goal"><span class="fst-italic fw-bold">Measurement Goal</span><a class="text-muted" href="#COM_Measurement+Goal_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Goal that can be used to drive the identification of the Measures needed to provide information in a certain context. Measurement Goals are established based on more general Goals.@Ex.: in the context of a doctor’s office, a doctor could be the general goal of Taking a good care of the patients. From this general goal, could be established the measurement goal Monitor the patient health, which could be decomposed in others, such as Check if the patient has a good body mass index and Check if the patient has a good blood pressure.</p></td></tr>
+<tr><td><p id="COM_Measurement+Planning"><span class="fst-italic fw-bold">Measurement Planning</span><a class="text-muted" href="#COM_Measurement+Planning_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Action that plans the measurement, i.e., determines the Measurement Goals to be monitored, the Information Needs to be considered, the Measures to be collected to meet the Information Needs and the Measurement Procedures to be applied. </p></td></tr>
+<tr><td><p id="COM_Measurement+Planning+Item"><span class="fst-italic fw-bold">Measurement Planning Item</span><a class="text-muted" href="#COM_Measurement+Planning+Item_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Social Object produced during Measurement Planning. A Measurement Planning Item specifies a Measurement Goal to be monitored, an Information Need to be considered, a Measure to be used to meet the Information Need and a Measurement Procedure to be applied to collect data for the Measure. Several Measurement Planning Items can be produced during Measurement Planning.@Ex.: the measurement planning item specifying the measurement goal Check if the patient has a good body mass index, the information need What is the patient body mass index?, the measure body mass index in kilos and meters to be collected by using the measurement procedure Obtain the values measured to the measures weight in grams and and height in centimeters considering a same measurement date; apply the measurement formula to calculate the body mass index in kilos and meters; record the measured value and the measurement date.</p></td></tr>
+<tr><td><p id="COM_Measurement+Procedure"><span class="fst-italic fw-bold">Measurement Procedure</span><a class="text-muted" href="#COM_Measurement+Procedure_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Procedure applicable to a Measure and that describe the steps to be carried out to collect data for it.@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.</p></td></tr>
+<tr><td><p id="COM_Ordinal+Scale"><span class="fst-italic fw-bold">Ordinal Scale</span><a class="text-muted" href="#COM_Ordinal+Scale_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Scale whose Scale Values can be mapped to a certain order or ranking. @Ex.: the measure client satisfaction degree, which can be mapped to the values “high”, “medium” or “low”, has an Ordinal Scale.</p></td></tr>
+<tr><td><p id="COM_Rational+Scale"><span class="fst-italic fw-bold">Rational Scale</span><a class="text-muted" href="#COM_Rational+Scale_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Scale in which it is possible to quantify the distance between its Scale Values, there is a value to represent nonentity (absolute zero) and it is possible to establish relations between Scale Values.@Ex.: the measure distance in kilometers has a rational scale, since 0km means the absence of distance, it is possible to quantify the distance between scale values (e.g., there are 10km between the distances 20km and 30km) as well as establish other relations between them (e.g., we can say that 100km is twice longer than 50km).</p></td></tr>
+<tr><td><p id="COM_Scale"><span class="fst-italic fw-bold">Scale</span><a class="text-muted" href="#COM_Scale_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Delimitates the space of values possible to be associated by a Measure to a Measurable Element. @Ex.: the scale of the measure height in meters is a liner structure isomorphic to the positive half-line of the real numbers.</p></td></tr>
+<tr><td><p id="COM_Scale+Value"><span class="fst-italic fw-bold">Scale Value</span><a class="text-muted" href="#COM_Scale+Value_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Value that compose a Scale.@Ex.: 0.5, 1, 1.8 are examples of values that compose the scale of the measure height in meters.</p></td></tr>
+<tr><td><p id="COM_Simple+Goal"><span class="fst-italic fw-bold">Simple Goal</span><a class="text-muted" href="#COM_Simple+Goal_detail"><span class="m-1"><i class="bi bi-plus-circle"></i></span></a></p></td><td><p>Goal that is not composed by others.@Ex.:  Monitor the patient’s blood pressure.</p></td></tr>
+</tbody>
+                        <caption id="conceptsDefinitionCaption">
+                            <small><span th:text="${onto}">COM</span> concepts definition.</small>
+                        </caption>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. Detailed Concepts -->
+            <section class="section p-5 rounded" id="detailedconcepts">
+                <h2 class="display-6">5. Detailed Concepts</h2>
+                <p class="lead"><span th:text="${title}">Core Ontology on Measurement (external) (COM)</span> detailed concepts.</p>
+                <div th:utext="${detailedConcepts}"><hr><div class="container-fluid" id="COM_Analysis+Result_detail"><h4><i class="bi bi-diagram-3"></i> COM::Analysis Result</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Analysis Result</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Social Object</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Result produced by a Measurement Analysis. An Analysis Result characterizes a Measurable Entity and provides information related to a Measurement Goal.@Ex.: the analysis of the measured values 26, 25.5 e 24, collected for the measure body mass index in kilos and meters to the measurable entity John could produce the analysis result: The patient’s body mass index decreased from an overweight to a normal weight value and the patient has now a good body mass index. This analysis result characterizes the measurable entity John and provides information to the measurement goal Check if the patient has a good body mass index.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Analysis Result (1..1) produces (1..1) Measurement Analysis<br>Analysis Result (0..*) characterizes (1..1) Measurable Entity<br>Analysis Result (0..*) /provides information to monitor (1..1) Measurement Goal<br>Analysis Result Description (0..1) describes (1..1) Analysis Result<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Base+Measure_detail"><h4><i class="bi bi-diagram-3"></i> COM::Base Measure</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Base Measure</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Measure</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measure used to quantify a Directly Measurable Element.@Ex.: the base measure height in meters can be used to quantify the directly measurable element height.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Base Measure (1..*) used to quantity (1..1) Directly Measurable Element<br>Basic Measurement Procedure (1..*) applies to (1..*) Base Measure<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Basic+Measurement+Procedure_detail"><h4><i class="bi bi-diagram-3"></i> COM::Basic Measurement Procedure</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Basic Measurement Procedure</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Measurement Procedure</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measurement Procedure applicable to a Base Measure.@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Basic Measurement Procedure (1..*) applies to (1..*) Base Measure<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Complex+Goal_detail"><h4><i class="bi bi-diagram-3"></i> COM::Complex Goal</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Complex Goal</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Goal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Goal that is composed by others.@Ex.: the complex goal Monitor the patient health could be decomposed in Check if the patient has a good body mass index and Check if the patient has a good blood pressure.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Complex Goal (0..*)  (1..*) Goal<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Derivative+Measurement+Procedure_detail"><h4><i class="bi bi-diagram-3"></i> COM::Derivative Measurement Procedure</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Derivative Measurement Procedure</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Measurement Procedure</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measurement Procedure applicable to a Derived Measure.@Ex.: Measurement procedure to collect data for the measure body mass index in kilos and meters: Obtain the values measured to the measures weight in kilos and and height in meters considering a same measurement date.  Apply the measurement formula to calculate the body mass index in kilos and meters. Record the measured value and the measurement date.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Derivative Measurement Procedure (1..*) applies to (1..*) Derived Measure<br>Derivative Measurement Procedure (1..*) includes (1..1) Measurement Formula<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Derived+Measure_detail"><h4><i class="bi bi-diagram-3"></i> COM::Derived Measure</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Derived Measure</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Measure</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measure used to quantify an Indirectly Measurable Element.@Ex.: the measure body mass index in kilos and meters can be used to quantify the indirectly measurable element body mass index.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Derived Measure (0..*) derived from (1..*) Measure<br>Derived Measure (1..1) calculated by (1..*) Measurement Formula<br>Derived Measure (1..*) used to quantity (1..1) Indirectly Measurable Element<br>Derivative Measurement Procedure (1..*) applies to (1..*) Derived Measure<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Directly+Measurable+Element_detail"><h4><i class="bi bi-diagram-3"></i> COM::Directly Measurable Element</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Directly Measurable Element</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Simple Quality Universal</p><p><i class="bi bi-diagram-2"></i> COM::Measurable Element</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measurable Element that does not depend on others to be measured. @Ex.: weight and height.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Base Measure (1..*) used to quantity (1..1) Directly Measurable Element<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Indicator_detail"><h4><i class="bi bi-diagram-3"></i> COM::Indicator</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Indicator</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Measure</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measure directly used to indicate the achievement of Measurement Goals.@Ex.: the measure body mass index in kilos and meters could play the role of indicator when indicating the achievement of the measurement goal Check if the patient has a good body mass index.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Indicator (1..*) indicates achievement of (1..*) Measurement Goal<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Indirectly+Measurable+Element_detail"><h4><i class="bi bi-diagram-3"></i> COM::Indirectly Measurable Element</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Indirectly Measurable Element</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Measurable Element</p><p><i class="bi bi-diagram-2"></i> UFO::Composed Quality Universal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measurable Element that depends on others (its sub-elements) to be measured. @Ex.: body mass index is an indirectly measurable element measured from weight and height.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Derived Measure (1..*) used to quantity (1..1) Indirectly Measurable Element<br>Indirectly Measurable Element (0..*)  (2..*) Measurable Element<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Information+Need_detail"><h4><i class="bi bi-diagram-3"></i> COM::Information Need</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Information Need</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Goal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Information Needs are identified from Measurement Goals and determine which information have to be met by Measures in order to monitor the achievement of the related Measurement Goal.@Ex.: the information need What is the patient body mass index? could be identified from the measurement goal Check if the patient has a good body mass index.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurable Entity Type (1..1) refers to (0..*) Information Need<br>Measure (0..*) meets (0..*) Information Need<br>Information Need Description (0..1) describes (1..1) Information Need<br>Measurable Element (1..1) refers to (0..*) Information Need<br>Measurement Goal (1..*) is identified from (0..*) Information Need<br>Information Need (1..1) specifies (0..*) Measurement Planning Item<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Interval+Scale_detail"><h4><i class="bi bi-diagram-3"></i> COM::Interval Scale</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Interval Scale</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Scale</p><p><i class="bi bi-diagram-2"></i> UFO::Interval MeaRefDimension</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Scale in which it is possible to quantify the distance between its Scale Values and there is not a value to represent nonentity (absolute zero). In an Interval Scale, although it is possible to quantify the distance between Scale Values, it is not possible to establish other relations between them. @Ex.: the measure temperature in Celsius degree has an interval scale, since it is possible to quantify the distance between its scale values (e.g., there are 10o between the temperatures 20oC and 30oC), 0oC does not mean the absence of temperature and it is not possible to establish relations between scale values (e.g., we cannot say that 50oC is twice hotter than 25oC).</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurable+Element_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurable Element</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurable Element</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Measurable Quality Universal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Measurable property that characterizes a Measurable Entity Type.@Ex.: height is a measurable element that characterizes measurable entities of the Person type.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measure (1..*) used to quantify (1..1) Measurable Element<br>Measurable Entity (1..*) characterized by (1..*) Measurable Element<br>Operational Definition of Measure (0..*) indicates (1..1) Measurable Element<br>Measurable Element (1..*) characterized by (1..*) Measurable Entity Type<br>Measurable Element (1..1) refers to (0..*) Information Need<br>Measurement (0..*) /measures (1..1) Measurable Element<br>Indirectly Measurable Element (0..*)  (2..*) Measurable Element<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurable+Entity_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurable Entity</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurable Entity</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Entity</p><p><i class="bi bi-diagram-2"></i> UFO::Universal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Anything that can be measured. @Ex.: a person, a project, an organization.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurable Entity (1..*) characterized by (1..*) Measurable Element<br>Measurable Entity (0..*) instance of (1..*) Measurable Entity Type<br>Analysis Result (0..*) characterizes (1..1) Measurable Entity<br>Measurement Analysis (0..*) characterizes (1..1) Measurable Entity<br>Measurement (0..*) measures (1..1) Measurable Entity<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurable+Entity+Type_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurable Entity Type</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurable Entity Type</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::2ndOT</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Type of entities that can be measured.@Ex.: John is a measurable entity of the type Person.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurable Entity Type (1..1) refers to (0..*) Information Need<br>Measure (1..*) used to characterize (1..*) Measurable Entity Type<br>Measurable Entity (0..*) instance of (1..*) Measurable Entity Type<br>Measurable Element (1..*) characterized by (1..*) Measurable Entity Type<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measure_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measure</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measure</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Function</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Function used to associate a value (Measured Value) to a Measurable Element of a Measurable Entity. Measures quantify Measurable Elements and characterize Measurable Entity Types.@Ex.: the measure height in meters can be used to quantify the measurable element height of measurable entities of the type Person.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measure (1..*) used to quantify (1..1) Measurable Element<br>Measure (0..*) expressed in (0..1) Measure Unit<br>Measure (1..1) has (1..1) Scale<br>Measure (1..*) used to characterize (1..*) Measurable Entity Type<br>Measure (0..*) correlated to (0..*) Measure<br>Measure (0..*) correlated to (0..*) Measure<br>Measure (0..*) meets (0..*) Information Need<br>Measure (1..1) specifies (0..*) Measurement Planning Item<br>Derived Measure (0..*) derived from (1..*) Measure<br>Measurement Analysis Procedure (0..*) applies to (1..*) Measure<br>Measurement Analysis (0..*) considers (1..*) Measure<br>Measurement (0..*) /applies (1..1) Measure<br>Measurement Procedure (1..*) applies to (1..*) Measure<br>Measurement Formula (0..*) uses (1..*) Measure<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measure+Unit_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measure Unit</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measure Unit</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Unit</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Unit in which measures can be expressed. @Ex.: meter, kilo, hour.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measure (0..*) expressed in (0..1) Measure Unit<br>Scale (1..*) partitioned according to (0..1) Measure Unit<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measured+Value_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measured Value</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measured Value</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Scale Value</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Value obtained in a Measurement.@Ex.: the measured value 75 obtained in the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurement Analysis (0..*) analyzes (1..*) Measured Value<br>Measurement (1..1) determines (1..1) Measured Value<br>Measured Value Description (0..1) describes (1..1) Measured Value<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurement_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurement</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurement</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Event (Perdurant)</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Action that measures a Measurable Element of a Measurable Entity by applying a Measure and adopting a Measurement Procedure to obtain a Measured Value. A Measurement is performed based on a Measurement Planning Item. @Ex.: the measurement of the measurable element weight of the measurable entity John by applying the measure weight in kilos, adopting a certain measurement procedure and resulting in the measured value 75. </p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurement Planning Item (1..1) performed based on (0..*) Measurement<br>Measurement (0..*) /adopts (1..1) Measurement Procedure<br>Measurement (0..*) measures (1..1) Measurable Entity<br>Measurement (0..*) /measures (1..1) Measurable Element<br>Measurement (0..*) /applies (1..1) Measure<br>Measurement (1..1) determines (1..1) Measured Value<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurement+Analysis_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurement Analysis</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurement Analysis</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Event (Perdurant)</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Action that analyzes Measure Values collected for Measures aiming to characterize a Measurable Entity and provide information related to a Measurement Goal. @Ex.: a measurement analysis could analyze the measured values 26, 25.5 e 24, collected for the measure body mass index in kilos and meters to characterize the measurable entity John.    </p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurement Planning Item (1..*) performed based on (0..*) Measurement Analysis<br>Analysis Result (1..1) produces (1..1) Measurement Analysis<br>Measurement Analysis (0..*) considers (1..*) Measure<br>Measurement Analysis (0..*) analyzes (1..*) Measured Value<br>Measurement Analysis (0..*) characterizes (1..1) Measurable Entity<br>Measurement Analysis (0..*) considers (1..1) Measurement Goal<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurement+Formula_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurement Formula</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurement Formula</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Expression</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Formula that quantifies relations between Measures from which a Derived Measure is obtained. @Ex.: the measure body mass index in kilos and meters (BMI) can be calculated from the measures weight in kilos (w) and height in meters (h) by applying the measurement formula BMI = w/(h*h).</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Derived Measure (1..1) calculated by (1..*) Measurement Formula<br>Derivative Measurement Procedure (1..*) includes (1..1) Measurement Formula<br>Measurement Formula (0..*) uses (1..*) Measure<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurement+Goal_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurement Goal</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurement Goal</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Goal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Goal that can be used to drive the identification of the Measures needed to provide information in a certain context. Measurement Goals are established based on more general Goals.@Ex.: in the context of a doctor’s office, a doctor could be the general goal of Taking a good care of the patients. From this general goal, could be established the measurement goal Monitor the patient health, which could be decomposed in others, such as Check if the patient has a good body mass index and Check if the patient has a good blood pressure.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Analysis Result (0..*) /provides information to monitor (1..1) Measurement Goal<br>Indicator (1..*) indicates achievement of (1..*) Measurement Goal<br>Measurement Goal (1..*) is identified from (0..*) Information Need<br>Measurement Goal (1..1) specifies (0..*) Measurement Planning Item<br>Measurement Goal (0..*) based on (1..*) Goal<br>Measurement Analysis (0..*) considers (1..1) Measurement Goal<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurement+Planning_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurement Planning</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurement Planning</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Event (Perdurant)</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Action that plans the measurement, i.e., determines the Measurement Goals to be monitored, the Information Needs to be considered, the Measures to be collected to meet the Information Needs and the Measurement Procedures to be applied. </p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurement Planning (1..1) produces (1..*) Measurement Planning Item<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurement+Planning+Item_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurement Planning Item</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurement Planning Item</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Social Object</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Social Object produced during Measurement Planning. A Measurement Planning Item specifies a Measurement Goal to be monitored, an Information Need to be considered, a Measure to be used to meet the Information Need and a Measurement Procedure to be applied to collect data for the Measure. Several Measurement Planning Items can be produced during Measurement Planning.@Ex.: the measurement planning item specifying the measurement goal Check if the patient has a good body mass index, the information need What is the patient body mass index?, the measure body mass index in kilos and meters to be collected by using the measurement procedure Obtain the values measured to the measures weight in grams and and height in centimeters considering a same measurement date; apply the measurement formula to calculate the body mass index in kilos and meters; record the measured value and the measurement date.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measure (1..1) specifies (0..*) Measurement Planning Item<br>Measurement Planning Item (0..*) specifies (1..1) Measurement Procedure<br>Measurement Planning Item (1..1) performed based on (0..*) Measurement<br>Measurement Planning Item (1..*) performed based on (0..*) Measurement Analysis<br>Measurement Goal (1..1) specifies (0..*) Measurement Planning Item<br>Measurement Planning (1..1) produces (1..*) Measurement Planning Item<br>Information Need (1..1) specifies (0..*) Measurement Planning Item<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Measurement+Procedure_detail"><h4><i class="bi bi-diagram-3"></i> COM::Measurement Procedure</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Measurement Procedure</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Normative Description</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Procedure applicable to a Measure and that describe the steps to be carried out to collect data for it.@Ex.: Measurement procedure to collect data for the measure weight in kilos: Use a weighting digital instrument to measure the person weight in kilos. Record the measured value and the measurement date.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measurement Planning Item (0..*) specifies (1..1) Measurement Procedure<br>Operational Definition of Measure (0..*) indicates (1..1) Measurement Procedure<br>Measurement (0..*) /adopts (1..1) Measurement Procedure<br>Measurement Procedure (1..*) applies to (1..*) Measure<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Ordinal+Scale_detail"><h4><i class="bi bi-diagram-3"></i> COM::Ordinal Scale</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Ordinal Scale</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Scale</p><p><i class="bi bi-diagram-2"></i> UFO::Ordinal MeaRefDimension</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Scale whose Scale Values can be mapped to a certain order or ranking. @Ex.: the measure client satisfaction degree, which can be mapped to the values “high”, “medium” or “low”, has an Ordinal Scale.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Rational+Scale_detail"><h4><i class="bi bi-diagram-3"></i> COM::Rational Scale</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Rational Scale</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> COM::Scale</p><p><i class="bi bi-diagram-2"></i> UFO::Rational MeaRefDimension</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Scale in which it is possible to quantify the distance between its Scale Values, there is a value to represent nonentity (absolute zero) and it is possible to establish relations between Scale Values.@Ex.: the measure distance in kilometers has a rational scale, since 0km means the absence of distance, it is possible to quantify the distance between scale values (e.g., there are 10km between the distances 20km and 30km) as well as establish other relations between them (e.g., we can say that 100km is twice longer than 50km).</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Scale_detail"><h4><i class="bi bi-diagram-3"></i> COM::Scale</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Scale</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Measurement Reference Structure</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Delimitates the space of values possible to be associated by a Measure to a Measurable Element. @Ex.: the scale of the measure height in meters is a liner structure isomorphic to the positive half-line of the real numbers.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Measure (1..1) has (1..1) Scale<br>Scale (1..1) <>-- (2..*) Scale Value<br>Scale (1..*) partitioned according to (0..1) Measure Unit<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Scale+Value_detail"><h4><i class="bi bi-diagram-3"></i> COM::Scale Value</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Scale Value</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Measurement Reference Region</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Value that compose a Scale.@Ex.: 0.5, 1, 1.8 are examples of values that compose the scale of the measure height in meters.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p><code class="text-muted">Scale (1..1) <>-- (2..*) Scale Value<br></code></p></div></div></div>
+
+<hr><div class="container-fluid" id="COM_Simple+Goal_detail"><h4><i class="bi bi-diagram-3"></i> COM::Simple Goal</h4><div class="row d-flex"><div class="p-3 m-3 col"><div class="border border-dark mb-3"><p class="text-center"><br><span class="fw-bold">Simple Goal</span></p></div><br><h5>Specializes:</h5><p><i class="bi bi-diagram-2"></i> UFO::Goal</p></div><div class="p-3 m-3 col"><h5>Definition:</h5><p>Goal that is not composed by others.@Ex.:  Monitor the patient’s blood pressure.</p></div><div class="p-3 m-3 col"><h5>Relations:</h5><p></p></div></div></div>
+
+</div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="py-5 rounded border-top bg-light">
+    <div class="container">
+        <div class="row justify-content-md-center g-4">
+            <!-- Copyright -->
+            <div class="col-md-auto">
+                <h6>Copyright</h6>
+                <div class="d-flex align-items-center">
+                    <i class="material-icons text-muted me-1" aria-label="Símbolo de copyright">copyright</i>
+                    <span class="text-muted">
+                            <small th:text="'© ' + ${currentYear} + ' Simone Dornelas Costa'">© Nome a ser colocado</small>
+                        </span>
+                </div>
+            </div>
+
+            <!-- Powered by -->
+            <div class="col-md-auto">
+                <h6>Powered by</h6>
+                <ul class="list-unstyled text-muted">
+                    <li>
+                        <a href="https://nemo.inf.ufes.br/" target="_blank" class="text-muted text-decoration-none">
+                            <img src="../static/images/logoNemo.svg" alt="Logo NEMO" width="50" class="mb-1 d-block">
+                            NEMO
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ontologia -->
+            <div class="col-md-auto">
+                <h5 th:text="${ontoName}">COM</h5>
+                <ul class="list-unstyled text-muted">
+                    <li><small><a th:href="${onlyNameLink}" href="#" class="text-muted" th:text="${onlyName}">Core Ontology on Measurement (external)</a></small></li>
+                    <li><small><a th:href="${onLevelLink}" href="#" class="text-muted" th:text="${onLevel}">Core Ontology from SEON</a></small></li>
+                    <li><small><a th:href="${addInfoLink}" href="#" class="text-muted" th:text="${addInfo}">Unknown</a></small></li>
+                </ul>
+            </div>
+
+            <!-- Contato -->
+            <div class="col-md-auto">
+                <h6>Contact us</h6>
+                <ul class="list-unstyled text-muted">
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:simone.costa@ufes.br" class="text-muted">Email de algúem</a></small>
+                    </li>
+                    <li class="d-flex align-items-center">
+                        <i class="material-icons text-muted me-1" aria-label="E-mail">email</i>
+                        <small><a href="mailto:monalessa@inf.ufes.br" class="text-muted">Email de alguém</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="row mt-4 justify-content-md-center">
+            <div class="col-md-auto">
+                <small class="text-muted" th:text="${date}">Sun Mar 02 18:29:06 BRT 2025</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>
